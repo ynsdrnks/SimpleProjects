@@ -1,15 +1,7 @@
 package com.ynsdrnks.simplejpaonetoone.entity;
 
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.*;
 
@@ -38,7 +30,8 @@ public class Calisan{
     private String clsnEmail;
 
     @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "moreInfo_id")
+    @JoinColumn(name = "moreInfo_id",foreignKey = @ForeignKey(name = "none"))
+
     private MoreInfo moreInfo;
 
 

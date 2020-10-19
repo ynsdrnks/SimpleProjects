@@ -28,7 +28,10 @@ public class CalisanService{
     }
 
 
-    public void delete(Long id) {
+    public void delete(Calisan calisan) {
+        repo.delete(calisan);
+    }
+    public void deleteById(Long id) {
         repo.deleteById(id);
     }
 }

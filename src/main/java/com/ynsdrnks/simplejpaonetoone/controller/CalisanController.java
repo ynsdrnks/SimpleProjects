@@ -55,7 +55,8 @@ public class CalisanController {
 
     @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id){
-        calisanService.delete(id);
+
+        calisanService.deleteById(id);
         return "redirect:/";
     }
 
@@ -71,14 +72,26 @@ public class CalisanController {
     @GetMapping("/addInfo/{id}")
     public ModelAndView addInfo(@PathVariable(name = "id") Long id){
         ModelAndView mav =new ModelAndView("addInfo");
-        MoreInfo moreInfo = new MoreInfo();
-        moreInfo.setMoreInfoId(id);
+        if(infoService.getInfoById(id)!=null){
+        MoreInfo moreInfo = infoService.getInfoById(id);
         infoService.save(moreInfo);
         Calisan calisan = calisanService.getById(id);
         calisan.setMoreInfo(moreInfo);
         calisanService.save(calisan);
         mav.addObject("moreInfo",moreInfo);
         return mav;
+        }
+
+        else {
+            MoreInfo moreInfo = new MoreInfo();
+            moreInfo.setMoreInfoId(id);
+            infoService.save(moreInfo);
+            Calisan calisan = calisanService.getById(id);
+            calisan.setMoreInfo(moreInfo);
+            calisanService.save(calisan);
+            mav.addObject("moreInfo", moreInfo);
+            return mav;
+        }
     }
 
 

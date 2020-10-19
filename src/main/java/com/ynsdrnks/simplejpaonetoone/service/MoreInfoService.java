@@ -24,6 +24,11 @@ public class MoreInfoService {
         if(infoRepo.findById(id).isEmpty()){
             return null;
         }
+
         return infoRepo.findById(id).get();}
     public void saveInfoId(MoreInfo moreInfo,Long id){moreInfo.setMoreInfoId(id);}
+
+    public void  deleteInfo(MoreInfo moreInfo){
+        infoRepo.delete(moreInfo);
+    }
 }
