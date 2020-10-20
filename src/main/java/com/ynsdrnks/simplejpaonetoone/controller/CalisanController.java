@@ -2,8 +2,8 @@ package com.ynsdrnks.simplejpaonetoone.controller;
 
 import com.ynsdrnks.simplejpaonetoone.entity.Calisan;
 import com.ynsdrnks.simplejpaonetoone.entity.MoreInfo;
-import com.ynsdrnks.simplejpaonetoone.service.CalisanService;
-import com.ynsdrnks.simplejpaonetoone.service.MoreInfoService;
+import com.ynsdrnks.simplejpaonetoone.service.impl.CalisanServiceImpl;
+import com.ynsdrnks.simplejpaonetoone.service.impl.MoreInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,20 +13,19 @@ import java.util.List;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.constraints.Null;
-
 @Controller
 public class CalisanController {
     @Autowired
-    CalisanService calisanService;
+    CalisanServiceImpl calisanService;
     @Autowired
-    MoreInfoService infoService;
+    MoreInfoServiceImpl infoService;
  @RequestMapping("/")
     public String index(Model model){
         List<Calisan> listCalisans = calisanService.listAll();
         model.addAttribute("listCalisans",listCalisans);
         return "home";
     }
+
     @GetMapping("/new")
     public String newCalisan(Model model){
         Calisan calisan = new Calisan();
