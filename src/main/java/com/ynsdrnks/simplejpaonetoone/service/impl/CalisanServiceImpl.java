@@ -33,11 +33,6 @@ public class CalisanServiceImpl implements CalisanService {
     }
 
     @Override
-    public void delete(Calisan calisan) {
-    repo.delete(calisan);
-    }
-
-    @Override
     public void deleteById(Long id) {
     repo.deleteById(id);
     }

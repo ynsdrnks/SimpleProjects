@@ -1,7 +1,10 @@
 package com.ynsdrnks.simplejpaonetoone.controller;
 
+import com.ynsdrnks.simplejpaonetoone.entity.Adress;
 import com.ynsdrnks.simplejpaonetoone.entity.Calisan;
 import com.ynsdrnks.simplejpaonetoone.entity.MoreInfo;
+import com.ynsdrnks.simplejpaonetoone.service.AdressService;
+import com.ynsdrnks.simplejpaonetoone.service.impl.AdressServiceImpl;
 import com.ynsdrnks.simplejpaonetoone.service.impl.CalisanServiceImpl;
 import com.ynsdrnks.simplejpaonetoone.service.impl.MoreInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 public class CalisanController {
@@ -19,7 +26,9 @@ public class CalisanController {
     CalisanServiceImpl calisanService;
     @Autowired
     MoreInfoServiceImpl infoService;
- @RequestMapping("/")
+    @Autowired
+    AdressServiceImpl adressService;
+    @RequestMapping("/")
     public String index(Model model){
         List<Calisan> listCalisans = calisanService.listAll();
         model.addAttribute("listCalisans",listCalisans);
@@ -33,7 +42,7 @@ public class CalisanController {
         return "new-calisan";
     }
 
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @RequestMapping(value = "/saveCalisan",method = RequestMethod.POST)
     public String save(@ModelAttribute("calisan") Calisan calisan) {
         calisanService.save(calisan);
         Long id = calisan.getId();
@@ -45,7 +54,7 @@ public class CalisanController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/addInfo",method = RequestMethod.POST)
     public String addInfo(@ModelAttribute("moreInfo") MoreInfo moreInfo,Calisan calisan) {
         infoService.save(moreInfo);
         calisan.setMoreInfo(moreInfo);
@@ -92,6 +101,34 @@ public class CalisanController {
             return mav;
         }
     }
+
+    @GetMapping("/addAdress/{id}")
+    public ModelAndView addAddres(@PathVariable(name = "id")Long id){
+        ModelAndView mav =new ModelAndView("addAdress");
+        Adress adress = new Adress();
+        Calisan calisan = calisanService.getById(id);
+        adress.setCalisan_id(id);
+        adressService.updateAdress(adress);
+        mav.addObject("adress",adress);
+        return mav;
+    }
+
+    @RequestMapping(value = "/addAdress",method = RequestMethod.POST)
+    public String saveAdress(@ModelAttribute("adress") Adress adress) {
+        Calisan calisan = calisanService.getById(adress.getCalisan_id());
+        if (calisan.getAdresses().isEmpty()){
+            List<Adress> adresses = new ArrayList<>();
+            adresses.add(adress);
+            calisan.setAdresses(adresses);
+            calisanService.save(calisan);
+        }
+        else
+        calisan.getAdresses().add(adress);
+        calisanService.save(calisan);
+
+        return "redirect:/";
+    }
+
 
 
 

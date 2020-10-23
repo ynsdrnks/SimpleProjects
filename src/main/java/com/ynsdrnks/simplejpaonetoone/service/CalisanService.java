@@ -8,6 +8,5 @@ public interface CalisanService {
 List<Calisan> listAll();
 void  save(Calisan calisan);
 Calisan getById(Long id);
-void  delete(Calisan calisan);
 void deleteById(Long id);
 }
