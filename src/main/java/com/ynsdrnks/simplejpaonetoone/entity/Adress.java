@@ -36,4 +36,5 @@ public class Adress{
     @Column(name = "bina_no")
     private int binaNum;
 
+
 }

@@ -3,20 +3,18 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <link href="webjars/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
     <title>Çalışan Yönetim</title>
 </head>
 <body>
 <div align="center">
     <h1>Çalışan Listesi</h1>
     <a href="/new">Yeni Çalışan Ekle</a>
-
     <br/><br/>
     <table border="1" cellpadding="10">
         <thead>
         <tr>
 
-            <th>Çalışan ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
@@ -26,17 +24,18 @@
         <tbody>
         <tr th:each="clsn: ${listCalisans}">
 
-            <td th:text="${clsn.id}">Name</td>
+            <td th:text="${clsn.id}"HIDDEN></td>
             <td th:text="${clsn.clsnFirstName}">Name</td>
             <td th:text="${clsn.clsnLastName}">Last Name</td>
             <td th:text="${clsn.clsnEmail}">Email</td>
 
             <td><a th:href="@{'/edit/' + ${clsn.id}}">Düzenle</a>
-                &nbsp;
-                <a th:href="@{'/delete/' + ${clsn.id}}">Sil</a>
-                &nbsp;
+                &nbsp
+                <a th:href="@{'/delete/' + ${clsn.id}}">Sil</a>&nbsp;
+                &nbsp
                 <a th:href="@{'/addInfo/' + ${clsn.id}}">Bilgi Ekle/Düzenle</a>
-                <a th:href="@{'/addAdress/' + ${clsn.id}}">Adres Ekle</a>
+                &nbsp
+                <a th:href="@{'/listAdresses/' + ${clsn.id}}">Adres İşlemleri</a>
             </td>
 
         </tr>
@@ -44,7 +43,6 @@
     </table>
 </div>
 <script src="webjars/jquery/3.5.1/jquery.min.js"></script>
-<script src="webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<script src="webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
 </body>
 </html>

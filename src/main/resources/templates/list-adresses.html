@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ></html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <title>Çalışana Ait Adresler</title>
+</head>
+<body>
+<div align="center">
+
+    <h1>Çalışan Adresleri</h1>
+    <a th:href="@{'/listAdresses/addAdress/' + ${listAdresses.get(0).calisan_id}}">Yeni Adres Ekle</a>
+    <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+
+            <th>Şehir</th>
+            <th>İlçe</th>
+            <th>Mahalle</th>
+            <th>Sokak</th>
+            <th>Bina no</th>
+            <th>Actions</th>
+            <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+        <tr>
+        </thead>
+        <tbody>
+        <tr th:each="adress: ${listAdresses}">
+            <td th:text="${adress.sehir}">Şehir</td>
+            <td th:text="${adress.ilce}">İlçe</td>
+            <td th:text="${adress.mahalle}">Mahalle</td>
+            <td th:text="${adress.sokak}">Sokak</td>
+            <td th:text="${adress.binaNum}">Bina No</td>
+            <td th:hidden="${adress.calisan_id}"></td>
+            <td th:hidden="${adress.id}"></td>
+
+            <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+            <td><a th:href="@{'/editAdress/' + ${adress.id}}">Adres Düzenle</a>
+              &nbsp;
+                <a th:href="@{'/deleteAdress/' + ${adress.id}}">Adres Sil</a>
+                &nbsp;
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

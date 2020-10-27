@@ -3,8 +3,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="webjars/bootstrap/4.5.2/css/bootstrap.min.css" rel="script">
+    <script src="webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+    <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="script">
     <title>Calisan Duzenle</title>
 </head>
 <body>
@@ -17,9 +18,8 @@
     <form action="#" th:object="${calisan}"  th:action="@{/saveCalisan}"  method="post">
         <table border="0" cellpadding="10">
 
-            <td>ÇALIŞAN ID:</td>
             <td>
-                <input type="text" th:field="*{id}" readonly="readonly" />
+                <input type="hidden" th:field="*{id}" readonly="readonly" />
             </td>
             <tr>
                 <td>FIRST NAME:</td>
@@ -42,9 +42,8 @@
             </tr>
         </table>
     </form>
-
-    <script src="webjars/jquery/3.5.1/jquery.js"></script>
-    <script src="webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </div>
+<script src="webjars/jquery/3.5.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
 </body>
 </html>

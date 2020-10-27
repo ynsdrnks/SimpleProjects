@@ -5,6 +5,8 @@ import com.ynsdrnks.simplejpaonetoone.entity.Calisan;
 import com.ynsdrnks.simplejpaonetoone.entity.MoreInfo;
 import com.ynsdrnks.simplejpaonetoone.repository.AdressRepository;
 import com.ynsdrnks.simplejpaonetoone.service.AdressService;
+import com.ynsdrnks.simplejpaonetoone.service.CalisanService;
+import javassist.expr.NewArray;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.jni.Address;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,12 +29,13 @@ public class AdressServiceImpl implements AdressService {
 
     @Autowired
     private final AdressRepository adressrepo;
-
+    @Autowired
+    private  final CalisanService calisanService;
 
     @Override
-    public Page<Adress> getAllAdress(Pageable pageable) {
-        List<Adress> adresses = adressrepo.findAll();
-        return  new PageImpl<>(adresses,pageable,adresses.size());
+    public List<Adress> adressesByCalisanId(Long id) {
+        return  calisanService.getById(id).getAdresses();
+
     }
 
     @Override
@@ -39,25 +44,33 @@ public class AdressServiceImpl implements AdressService {
     }
 
 
-
     @Override
     public Adress getAdressById(@PathVariable(value = "adress_id") Long id) {
         Optional<Adress> adress = adressrepo.findById(id);
-        if(!adress.isPresent()){
+        if(adress.isEmpty()){
         return null;
         }
         return adress.get();
     }
 
     @Override
-    public Adress createAdress(Long id,@Valid Adress adressReq) {
-
-      return adressrepo.save(adressReq);
+    public List<Adress> listAllAdress() {
+        return adressrepo.findAll();
     }
+
     @Override
-    public Adress updateAdress( Adress adress){
-
-        return adressrepo.save(adress);
+    public Adress findAdressesByCalisanId(Long id) {
+        List<Adress> tempAdressList = adressrepo.findAll();
+        for (Adress adress : tempAdressList) {
+            if (adress.getCalisan_id().equals(calisanService.getById(id).getId())){
+                return adress;
+            }
+        }
+        return null;
     }
 
+
+    @Override
+    public  void saveAdress( Adress adress){
+        adressrepo.save(adress);    }
 }

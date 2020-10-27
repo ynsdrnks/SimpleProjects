@@ -11,9 +11,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 public interface AdressService {
-    Page<Adress> getAllAdress(Pageable pageable);
-    void deleteAdressById(Long id);
-    Adress  updateAdress(Adress adress);
+    List<Adress> adressesByCalisanId(Long id);
+    void   deleteAdressById(Long id);
+    void   saveAdress(Adress adress);
     Adress getAdressById(Long id);
-    Adress createAdress(Long id, Adress adress);
+    List<Adress> listAllAdress();
+    public Adress findAdressesByCalisanId(Long id);
 }

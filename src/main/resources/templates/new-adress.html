@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <title>Yeni Adres</title>
+    <div align="center">
+        <h1>Adres Ekle</h1>
+        <div>
+            &nbsp&nbsp&nbsp
+        </div>
+        <form action="#" th:object="${adress}"  th:action="@{/saveAdress}"  method="post">
+            <table border="0" cellpadding="10">
+
+                <tr>
+                    <td>Şehir</td>
+                    <td><input type="text" th:field="*{sehir}" required/>    </td>
+                </tr>
+
+                <tr>
+                    <td>İlçe</td>
+                    <td><input type="text" th:field="*{ilce}" required/></td>
+                </tr>
+
+                <tr>
+                    <td>Mahalle</td>
+                    <td><input type="text" th:field="*{mahalle}" required/></td>
+                </tr>
+
+                <tr>
+                    <td>Sokak</td>
+                    <td><input type="text" th:field="*{sokak}" required/></td>
+                </tr>
+
+                <tr>
+                    <td>Bina no</td>
+                    <td><input type="number" th:field="*{binaNum}" min="1" max="200" required/></td>
+                </tr>
+
+                <tr>
+                    <td><input type="hidden" th:field="*{calisan_id}" readonly/></td>
+                </tr>
+
+                <tr>
+                    <td colspan="1"><button type="submit">Kaydet</button></td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+
+</body>
+
+</html>

@@ -3,7 +3,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
+    <script src="webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+    <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
     <title>Add Info</title>
 </head>
 <body>
@@ -13,11 +15,10 @@
         &nbsp&nbsp&nbsp
     </div>
     <form action="#" th:object="${moreInfo}"  th:action="@{/addInfo}"  method="post">
-        <table border="0" cellpadding="10">
+        <table border="1" cellpadding="10">
 
-            <td>Çalışan ID:</td>
             <td>
-                <input type="text" th:field="*{moreInfoId}" readonly="readonly" />
+                <input type="hidden" th:field="*{moreInfoId}" readonly="readonly" />
             </td>
             <tr>
                 <td>Anne Adı:</td>
@@ -41,8 +42,7 @@
         </table>
     </form>
 
-    <script src="webjars/jquery/3.5.1/jquery.js"></script>
-    <script src="webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </div>
+
 </body>
 </html>
