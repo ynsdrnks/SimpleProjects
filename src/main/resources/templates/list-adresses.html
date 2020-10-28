@@ -10,7 +10,9 @@
 <div align="center">
 
     <h1>Çalışan Adresleri</h1>
-    <a th:href="@{'/listAdresses/addAdress/' + ${listAdresses.get(0).calisan_id}}">Yeni Adres Ekle</a>
+    <a th:href="@{'/'}">Home Page</a><br><br>
+    <a th:href="@{'/listAdresses/addAdress/' + ${listAdresses.get(0).calisanId}}">Yeni Adres Ekle</a><br>
+
     <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
     <br/><br/>
     <table border="1" cellpadding="10">
@@ -33,13 +35,13 @@
             <td th:text="${adress.mahalle}">Mahalle</td>
             <td th:text="${adress.sokak}">Sokak</td>
             <td th:text="${adress.binaNum}">Bina No</td>
-            <td th:hidden="${adress.calisan_id}"></td>
-            <td th:hidden="${adress.id}"></td>
+            <td th:hidden="${adress.calisanId}"></td>
+            <td th:hidden="${adress.adressId}"></td>
 
             <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
-            <td><a th:href="@{'/editAdress/' + ${adress.id}}">Adres Düzenle</a>
+            <td><a th:href="@{'/editAdress/' + ${adress.calisanId}+'/'+${adress.adressId}}">Adres Düzenle</a>
               &nbsp;
-                <a th:href="@{'/deleteAdress/' + ${adress.id}}">Adres Sil</a>
+                <a th:href="@{'/deleteAdress/' + ${adress.calisanId}+'/'+${adress.adressId}}">Adres Sil</a>
                 &nbsp;
             </td>
 

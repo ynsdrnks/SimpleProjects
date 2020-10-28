@@ -22,7 +22,7 @@ public class Calisan{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="clsn_id")
-    private Long id;
+    private Long clsnId;
 
     @Column(name="clsn_fname")
     private String clsnFirstName;

@@ -34,7 +34,7 @@ public class AdressServiceImpl implements AdressService {
 
     @Override
     public List<Adress> adressesByCalisanId(Long id) {
-        return  calisanService.getById(id).getAdresses();
+        return  calisanService.getByCalisanId(id).getAdresses();
 
     }
 
@@ -62,7 +62,7 @@ public class AdressServiceImpl implements AdressService {
     public Adress findAdressesByCalisanId(Long id) {
         List<Adress> tempAdressList = adressrepo.findAll();
         for (Adress adress : tempAdressList) {
-            if (adress.getCalisan_id().equals(calisanService.getById(id).getId())){
+            if (adress.getCalisanId().equals(calisanService.getByCalisanId(id).getClsnId())){
                 return adress;
             }
         }

@@ -24,18 +24,18 @@
         <tbody>
         <tr th:each="clsn: ${listCalisans}">
 
-            <td th:text="${clsn.id}"HIDDEN></td>
+            <td th:text="${clsn.clsnId}"hidden></td>
             <td th:text="${clsn.clsnFirstName}">Name</td>
             <td th:text="${clsn.clsnLastName}">Last Name</td>
             <td th:text="${clsn.clsnEmail}">Email</td>
 
-            <td><a th:href="@{'/edit/' + ${clsn.id}}">Düzenle</a>
+            <td><a th:href="@{'/edit/' + ${clsn.clsnId}}">Düzenle</a>
                 &nbsp
-                <a th:href="@{'/delete/' + ${clsn.id}}">Sil</a>&nbsp;
+                <a th:href="@{'/delete/' + ${clsn.clsnId}}">Sil</a>&nbsp;
                 &nbsp
-                <a th:href="@{'/addInfo/' + ${clsn.id}}">Bilgi Ekle/Düzenle</a>
+                <a th:href="@{'/addInfo/' + ${clsn.clsnId}}">Bilgi Ekle/Düzenle</a>
                 &nbsp
-                <a th:href="@{'/listAdresses/' + ${clsn.id}}">Adres İşlemleri</a>
+                <a th:href="@{'/listAdresses/' + ${clsn.clsnId}}">Adres İşlemleri</a>
             </td>
 
         </tr>

@@ -3,25 +3,19 @@ package com.ynsdrnks.simplejpaonetoone.controller;
 import com.ynsdrnks.simplejpaonetoone.entity.Adress;
 import com.ynsdrnks.simplejpaonetoone.entity.Calisan;
 import com.ynsdrnks.simplejpaonetoone.entity.MoreInfo;
-import com.ynsdrnks.simplejpaonetoone.service.AdressService;
 import com.ynsdrnks.simplejpaonetoone.service.impl.AdressServiceImpl;
 import com.ynsdrnks.simplejpaonetoone.service.impl.CalisanServiceImpl;
 import com.ynsdrnks.simplejpaonetoone.service.impl.MoreInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.Valid;
 
 @Controller
 public class CalisanController {
@@ -31,9 +25,10 @@ public class CalisanController {
     MoreInfoServiceImpl infoService;
     @Autowired
     AdressServiceImpl adressService;
+
     @RequestMapping("/")
     public String index(Model model){
-        List<Calisan> listCalisans = calisanService.listAll();
+        List<Calisan> listCalisans = calisanService.listAllCalisans();
         model.addAttribute("listCalisans",listCalisans);
         return "home";
     }
@@ -48,7 +43,7 @@ public class CalisanController {
     @RequestMapping(value = "/saveCalisan",method = RequestMethod.POST)
     public String save(@ModelAttribute("calisan") Calisan calisan) {
         calisanService.save(calisan);
-        Long id = calisan.getId();
+        Long id = calisan.getClsnId();
         if (infoService.getInfoById(id)!= null){
             MoreInfo moreInfo = infoService.getInfoById(id);
             calisan.setMoreInfo(moreInfo);
@@ -66,33 +61,33 @@ public class CalisanController {
 
     @RequestMapping(value = "/addInfo",method = RequestMethod.POST)
     public String addInfo(@ModelAttribute("moreInfo") MoreInfo moreInfo,Calisan calisan) {
-        infoService.save(moreInfo);
+        infoService.saveInfo(moreInfo);
         calisan.setMoreInfo(moreInfo);
         return "redirect:/";
     }
 
-    @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
-    public String delete(@PathVariable("id") Long id){
+    @RequestMapping(value = "delete/{clsnId}",method = RequestMethod.GET)
+    public String delete(@PathVariable("clsnId") Long id){
         calisanService.deleteById(id);
         return "redirect:/";
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView editCalisan(@PathVariable(name = "id") Long id){
-    ModelAndView mav =new ModelAndView("edit");
-    Calisan calisan = calisanService.getById(id);
+    @GetMapping("/edit/{clsnId}")
+    public ModelAndView editCalisan(@PathVariable(name = "clsnId") Long id){
+    ModelAndView mav =new ModelAndView("edit-calisan");
+    Calisan calisan = calisanService.getByCalisanId(id);
     mav.addObject("calisan",calisan);
 
     return mav;
  }
 
-    @GetMapping("/addInfo/{id}")
-    public ModelAndView addInfo(@PathVariable(name = "id") Long id){
+    @GetMapping("/addInfo/{clsnId}")
+    public ModelAndView addInfo(@PathVariable(name = "clsnId") Long id){
         ModelAndView mav =new ModelAndView("addInfo");
         if(infoService.getInfoById(id)!=null){
         MoreInfo moreInfo = infoService.getInfoById(id);
-        infoService.save(moreInfo);
-        Calisan calisan = calisanService.getById(id);
+        infoService.saveInfo(moreInfo);
+        Calisan calisan = calisanService.getByCalisanId(id);
         calisan.setMoreInfo(moreInfo);
         calisanService.save(calisan);
         mav.addObject("moreInfo",moreInfo);
@@ -102,8 +97,8 @@ public class CalisanController {
         else {
             MoreInfo moreInfo = new MoreInfo();
             moreInfo.setMoreInfoId(id);
-            infoService.save(moreInfo);
-            Calisan calisan = calisanService.getById(id);
+            infoService.saveInfo(moreInfo);
+            Calisan calisan = calisanService.getByCalisanId(id);
             calisan.setMoreInfo(moreInfo);
             calisanService.save(calisan);
             mav.addObject("moreInfo", moreInfo);
@@ -111,14 +106,10 @@ public class CalisanController {
         }
     }
 
-    @GetMapping("/addAdress/{id}")
-    public String addAddres(@PathVariable(name = "id")Long id){
-        return "list-adresses";
-    }
 
     @RequestMapping(value = "/addAdress",method = RequestMethod.POST)
     public String saveAdress(@ModelAttribute("adress") Adress adress) {
-        Calisan calisan = calisanService.getById(adress.getCalisan_id());
+        Calisan calisan = calisanService.getByCalisanId(adress.getCalisanId());
         if (calisan.getAdresses().isEmpty()){
             List<Adress> adresses = new ArrayList<>();
             adresses.add(adress);
@@ -132,11 +123,11 @@ public class CalisanController {
         return "redirect:/";
     }
 
-    @RequestMapping("/listAdresses/{id}")
-    public String listAdresses(Model model,@PathVariable(name = "id") Long id){
-        List<Adress> adressList = calisanService.getById(id).getAdresses();
+    @RequestMapping("/listAdresses/{clsnId}")
+    public String listAdresses(Model model,@PathVariable(name = "clsnId") Long id){
+        List<Adress> adressList = calisanService.getByCalisanId(id).getAdresses();
         Adress adress = new Adress();
-        adress.setCalisan_id(id);
+        adress.setCalisanId(id);
         if(adressList.size()==0){
             model.addAttribute("adress",adress);
             return "new-adress";
@@ -146,38 +137,38 @@ public class CalisanController {
         return "list-adresses";
     }
 
-    @GetMapping("/listAdresses/addAdress/{id}")
-    public String newAdress(Model model,@PathVariable(name = "id")Long id){
+    @GetMapping("/listAdresses/addAdress/{clsnId}")
+    public String newAdress(Model model,@PathVariable(name = "clsnId")Long id){
         Adress adress = new Adress();
-        adress.setCalisan_id(id);
+        adress.setCalisanId(id);
         model.addAttribute("adress",adress);
         return "new-adress";
     }
-    @RequestMapping(value = "/saveAdress",method = RequestMethod.POST)
+    @RequestMapping(value = "/saveAdress/{clsnId}",method = RequestMethod.POST)
     public String saveAdresss(@ModelAttribute("adress") Adress adress) {
-        calisanService.getById(adress.getCalisan_id()).getAdresses().add(adress);
+        calisanService.getByCalisanId(adress.getCalisanId()).getAdresses().add(adress);
         adressService.saveAdress(adress);
-        return "redirect:/";
+        return "redirect:/listAdresses/{clsnId}";
     }
 
-    @GetMapping("/editAdress/{id}")
-    public ModelAndView editAdress(@PathVariable(name = "id") Long id){
+    @GetMapping("/editAdress/{calisanId}/{adressId}")
+    public ModelAndView editAdress(@PathVariable(name = "calisanId")Long calisanId,@PathVariable("adressId")Long adressId){
         ModelAndView mav =new ModelAndView("edit-adress");
-        Adress adress=adressService.getAdressById(id);
+        Adress adress=adressService.getAdressById(adressId);
+        calisanId=adress.getCalisanId();
         mav.addObject("adress",adress);
         return mav;
     }
 
-    @RequestMapping(value = "/updateAdress",method = RequestMethod.POST)
-    public String updateAdresss(@ModelAttribute("adress") Adress adress) {
+    @RequestMapping(value = "/updateAdress/{clsnId}",method = RequestMethod.POST)
+    public String updateAdresss(@ModelAttribute("adress") Adress adress){
         adressService.saveAdress(adress);
-        return "redirect:/";
+        return "redirect:/listAdresses/{clsnId}";
     }
-    @RequestMapping(value = "/deleteAdress/{id}",method = RequestMethod.GET)
-    public String deleteAdress(@PathVariable("id") Long id){
-        Long tempId= adressService.getAdressById(id).getCalisan_id();
-        adressService.deleteAdressById(id);
-        return "redirect:/";
+    @RequestMapping(value = "/deleteAdress/{clsnId}/{adressId}",method = RequestMethod.GET)
+    public String deleteAdress(@PathVariable("clsnId") Long calisanId,@PathVariable("adressId")Long adressId){
+        adressService.deleteAdressById(adressId);
+        return "redirect:/listAdresses/{clsnId}";
     }
 
 

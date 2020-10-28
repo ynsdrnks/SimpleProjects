@@ -14,15 +14,15 @@
     <div>
         &nbsp&nbsp&nbsp
     </div>
-    <form action="#" th:object="${adress}"  th:action="@{/updateAdress}"  method="post">
+    <form action="#" th:object="${adress}"  th:action="@{'/updateAdress/'+${adress.calisanId}}"  method="post">
         <table border="1" cellpadding="10">
 
             <td>
-                <input type="hidden" th:field="*{calisan_id}" />
+                <input type="hidden" th:field="*{calisanId}" />
             </td>
 
             <td>
-                <input type="hidden" th:field="*{id}"  />
+                <input type="hidden" th:field="*{adressId}"  />
             </td>
             <tr>
                 <td>Şehir:</td>

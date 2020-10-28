@@ -18,7 +18,7 @@ public class CalisanServiceImpl implements CalisanService {
     private final CalisanRepository repo;
 
     @Override
-    public List<Calisan> listAll() {
+    public List<Calisan> listAllCalisans() {
     return repo.findAll();
     }
 
@@ -28,7 +28,7 @@ public class CalisanServiceImpl implements CalisanService {
     }
 
     @Override
-    public Calisan getById(Long id) {
+    public Calisan getByCalisanId(Long id) {
         return repo.getOne(id);
     }
 

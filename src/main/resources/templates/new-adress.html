@@ -14,7 +14,7 @@
         <div>
             &nbsp&nbsp&nbsp
         </div>
-        <form action="#" th:object="${adress}"  th:action="@{/saveAdress}"  method="post">
+        <form action="#" th:object="${adress}"  th:action="@{'/saveAdress/'+${clsnId}}"  method="post">
             <table border="0" cellpadding="10">
 
                 <tr>
@@ -43,7 +43,7 @@
                 </tr>
 
                 <tr>
-                    <td><input type="hidden" th:field="*{calisan_id}" readonly/></td>
+                    <td><input type="hidden" th:field="*{calisanId}" readonly/></td>
                 </tr>
 
                 <tr>

@@ -18,9 +18,9 @@ public class Adress{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "adress_id")
-    private Long id;
+    private Long adressId;
     @Column
-    private Long calisan_id;
+    private Long calisanId;
     @Column(name = "sehir")
     private String sehir;
 

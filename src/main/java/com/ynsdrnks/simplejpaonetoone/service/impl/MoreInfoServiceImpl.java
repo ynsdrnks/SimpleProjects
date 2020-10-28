@@ -23,7 +23,7 @@ public class MoreInfoServiceImpl implements MoreInfoService {
     }
 
     @Override
-    public void save(MoreInfo moreInfo) {
+    public void saveInfo(MoreInfo moreInfo) {
     infoRepo.save(moreInfo);
     }
 
