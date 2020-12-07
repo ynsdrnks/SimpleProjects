@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" />
     <title>Çalışan Yönetim</title>
 </head>
 <body>
@@ -42,7 +42,8 @@
         </tbody>
     </table>
 </div>
-<script src="webjars/jquery/3.5.1/jquery.min.js"></script>
-<script src="webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js/}"></script>
+<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+
 </body>
 </html>

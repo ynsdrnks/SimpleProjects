@@ -8,4 +8,6 @@ public interface MoreInfoService {
     void  saveInfo(MoreInfo moreInfo);
     MoreInfo getInfoById(Long id);
     void deleteInfo(MoreInfo moreInfo);
+
+
 }

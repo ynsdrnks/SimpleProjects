@@ -1,10 +1,10 @@
 package com.ynsdrnks.simplejpaonetoone.controller;
 
-import com.ynsdrnks.simplejpaonetoone.entity.Adress;
-import com.ynsdrnks.simplejpaonetoone.entity.Calisan;
-import com.ynsdrnks.simplejpaonetoone.entity.MoreInfo;
+import com.ynsdrnks.simplejpaonetoone.converter.Converter;
+import com.ynsdrnks.simplejpaonetoone.entity.*;
 import com.ynsdrnks.simplejpaonetoone.service.impl.AdressServiceImpl;
 import com.ynsdrnks.simplejpaonetoone.service.impl.CalisanServiceImpl;
+import com.ynsdrnks.simplejpaonetoone.service.impl.CountryServiceImpl;
 import com.ynsdrnks.simplejpaonetoone.service.impl.MoreInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +25,10 @@ public class CalisanController {
     MoreInfoServiceImpl infoService;
     @Autowired
     AdressServiceImpl adressService;
+    @Autowired
+    Converter converter;
+    @Autowired
+    CountryServiceImpl countryService;
 
     @RequestMapping("/")
     public String index(Model model){
@@ -137,13 +141,13 @@ public class CalisanController {
         return "list-adresses";
     }
 
-    @GetMapping("/listAdresses/addAdress/{clsnId}")
-    public String newAdress(Model model,@PathVariable(name = "clsnId")Long id){
-        Adress adress = new Adress();
-        adress.setCalisanId(id);
-        model.addAttribute("adress",adress);
-        return "new-adress";
-    }
+//    @GetMapping("/listAdresses/addAdress/{clsnId}")
+//    public String newAdress(Model model,@PathVariable(name = "clsnId")Long id){
+//        Adress adress = new Adress();
+//        adress.setCalisanId(id);
+//        model.addAttribute("adress",adress);
+//        return "new-adress";
+//    }
     @RequestMapping(value = "/saveAdress/{clsnId}",method = RequestMethod.POST)
     public String saveAdresss(@ModelAttribute("adress") Adress adress) {
         calisanService.getByCalisanId(adress.getCalisanId()).getAdresses().add(adress);
@@ -160,17 +164,34 @@ public class CalisanController {
         return mav;
     }
 
+    @RequestMapping(value = "/deleteAdress/{clsnId}/{adressId}")
+    public String deleteAdresss(@PathVariable("adressId") Long addressId) {
+        adressService.deleteAdressById(addressId);
+        return "redirect:/listAdresses/{clsnId}";
+    }
     @RequestMapping(value = "/updateAdress/{clsnId}",method = RequestMethod.POST)
     public String updateAdresss(@ModelAttribute("adress") Adress adress){
         adressService.saveAdress(adress);
         return "redirect:/listAdresses/{clsnId}";
     }
-    @RequestMapping(value = "/deleteAdress/{clsnId}/{adressId}",method = RequestMethod.GET)
-    public String deleteAdress(@PathVariable("clsnId") Long calisanId,@PathVariable("adressId")Long adressId){
-        adressService.deleteAdressById(adressId);
-        return "redirect:/listAdresses/{clsnId}";
+
+    @GetMapping("/listAdresses/addAdress/{clsnId}")
+    public String adresssad(Model model,@PathVariable(name ="clsnId")Long id){
+        Adress adress = new Adress();
+        adress.setCalisanId(id);
+        model.addAttribute("countryList",countryService.findAllCountries());
+        return "addressdropdown";
     }
 
+    //dropdown
+    @RequestMapping(value = "/saveAdressDropDown/{clsnId}",method = RequestMethod.POST)
+    public ModelAndView saveAdresss(@PathVariable(name = "clsnId") Long clsnId,@ModelAttribute("address")@RequestBody Adress adress) {
+        ModelAndView mav = new ModelAndView();
+        calisanService.getByCalisanId(adress.getCalisanId()).getAdresses().add(adress);
+        adressService.saveAdress(adress);
+        mav.addObject("addressList",adressService.getAdressById(clsnId));
+        return  mav;
+    }
 
 }
 
