@@ -126,65 +126,34 @@ public class CalisanController {
         return "redirect:/";
     }
 
-    @RequestMapping("/listAdresses/{clsnId}")
-    public String listAdresses(Model model,@PathVariable(name = "clsnId") Long id){
-        List<Adress> adressList = calisanService.getByCalisanId(id).getAdresses();
-        Adress adress = new Adress();
-        adress.setCalisanId(id);
-        if(adressList.size()==0){
-            model.addAttribute("adress",adress);
-            return "new-adress";
-        }
-        else
-        model.addAttribute("listAdresses",adressList);
-        return "list-adresses";
-    }
 
-//    @GetMapping("/listAdresses/addAdress/{clsnId}")
-//    public String newAdress(Model model,@PathVariable(name = "clsnId")Long id){
-//        Adress adress = new Adress();
-//        adress.setCalisanId(id);
-//        model.addAttribute("adress",adress);
-//        return "new-adress";
-//    }
     @RequestMapping(value = "/saveAdress/{clsnId}",method = RequestMethod.POST)
-    public String saveAdresss(@ModelAttribute("adress") Adress adress) {
-        calisanService.getByCalisanId(adress.getCalisanId()).getAdresses().add(adress);
-        adressService.saveAdress(adress);
+    public String saveAdresss(@ModelAttribute("adress") AddressDropDown adress) {
+        calisanService.getByCalisanId(adress.getCalisanId()).getAddressDropDowns().add(adress);
+        addressDropDownService.saveAdress(adress);
         return "redirect:/listAdresses/{clsnId}";
     }
 
     @GetMapping("/editAdress/{calisanId}/{adressId}")
     public ModelAndView editAdress(@PathVariable(name = "calisanId")Long calisanId,@PathVariable("adressId")Long adressId){
         ModelAndView mav =new ModelAndView("edit-adress");
-        Adress adress=adressService.getAdressById(adressId);
+        AddressDropDown adress=addressDropDownService.getAdressById(adressId);
         calisanId=adress.getCalisanId();
         mav.addObject("adress",adress);
+        mav.addObject("countryList",countryService.findAllCountries());
         return mav;
     }
 
     @RequestMapping(value = "/deleteAdress/{clsnId}/{adressId}")
     public String deleteAdresss(@PathVariable("adressId") Long addressId) {
-        adressService.deleteAdressById(addressId);
+        addressDropDownService.deleteAdressById(addressId);
         return "redirect:/listAdresses/{clsnId}";
     }
     @RequestMapping(value = "/updateAdress/{clsnId}",method = RequestMethod.POST)
-    public String updateAdresss(@ModelAttribute("adress") Adress adress){
-        adressService.saveAdress(adress);
+    public String updateAdresss(@ModelAttribute("adress") AddressDropDown adress){
+        addressDropDownService.saveAdress(adress);
         return "redirect:/listAdresses/{clsnId}";
     }
-
-//    @GetMapping("/listAdresses/addAdress/{clsnId}")
-//    public String adresssad(Model model,@PathVariable(name ="clsnId")Long id){
-//        Adress adress = new Adress();
-//        adress.setCalisanId(id);
-//        model.addAttribute("countryList",countryService.findAllCountries());
-//        model.addAttribute("adress",adress);
-//        return "addressdropdown";
-//    }
-
-
-
 
     //dropdown
 
@@ -206,9 +175,22 @@ public class CalisanController {
         ModelAndView mav = new ModelAndView();
         calisanService.getByCalisanId(clsnId).getAddressDropDowns().add(addressDropDown);
         addressDropDown.setCalisanId(clsnId);
-        addressDropDown.setAddressDetails("asfasfasa");
         addressDropDownService.saveAdress(addressDropDown);
         return  "redirect:/listAdresses/{clsnId}";
+    }
+
+    @RequestMapping("/listAdresses/{clsnId}")
+    public String listdropDownAdresses(Model model,@PathVariable(name = "clsnId") Long id){
+        List<AddressDropDown> adressList = calisanService.getByCalisanId(id).getAddressDropDowns();
+        AddressDropDown addressDropDown = new AddressDropDown();
+        addressDropDown.setCalisanId(id);
+        if(adressList.size()==0){
+            model.addAttribute("adressDropDown",addressDropDown);
+            return "redirect:/listAdresses/addAdress/{clsnId}";
+        }
+        else
+            model.addAttribute("listAdresses",adressList);
+        return "list-adresses";
     }
 
 }

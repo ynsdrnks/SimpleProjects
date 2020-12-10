@@ -23,9 +23,8 @@ public class AddressDropDown implements Serializable {
     @Column
     private Long calisanId;
 
-    @Column
+    @Column(name = "adress_details")
     private String addressDetails;
-
 
     @ManyToOne()
     @JoinColumn(name = "country_id",referencedColumnName = "country_id",foreignKey = @ForeignKey(name = "none"))

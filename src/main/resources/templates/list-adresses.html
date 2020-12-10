@@ -20,29 +20,26 @@
         <thead>
         <tr>
 
-            <th>Şehir</th>
-            <th>İlçe</th>
-            <th>Mahalle</th>
-            <th>Sokak</th>
-            <th>Bina no</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>District</th>
+            <th>Details</th>
             <th>Actions</th>
             <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
         <tr>
         </thead>
         <tbody>
         <tr th:each="adress: ${listAdresses}">
-            <td th:text="${adress.sehir}">Şehir</td>
-            <td th:text="${adress.ilce}">İlçe</td>
-            <td th:text="${adress.mahalle}">Mahalle</td>
-            <td th:text="${adress.sokak}">Sokak</td>
-            <td th:text="${adress.binaNum}">Bina No</td>
+            <td th:text="${adress.country.countryName}">Country</td>
+            <td th:text="${adress.city.cityName}">Şehir</td>
+            <td th:text="${adress.district.districtName}">İlçe</td>
+            <td th:text="${adress.addressDetails}">Adres Detay</td>
             <td th:hidden="${adress.calisanId}"></td>
-            <td th:hidden="${adress.adressId}"></td>
 
             <link href="webjars/bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
-            <td><a th:href="@{'/editAdress/' + ${adress.calisanId}+'/'+${adress.adressId}}">Adres Düzenle</a>
+            <td><a th:href="@{'/editAdress/' + ${adress.calisanId}+'/'+${adress.adressDropDownId}}">Adres Düzenle</a>
               &nbsp;
-                <a th:href="@{'/deleteAdress/' + ${adress.calisanId}+'/'+${adress.adressId}}">Adres Sil</a>
+                <a th:href="@{'/deleteAdress/' + ${adress.calisanId}+'/'+${adress.adressDropDownId}}">Adres Sil</a>
                 &nbsp;
             </td>
 

@@ -12,48 +12,123 @@
         &nbsp&nbsp&nbsp
     </div>
     <form action="#" th:object="${adress}"  th:action="@{'/updateAdress/'+${adress.calisanId}}"  method="post">
-        <table border="1" cellpadding="10">
+        <div class="form-row">
+            <div class="col-md-6  select-arrow-active " >
+                <div class="form-group" row>
+                    <label class="col-sm-3 col-form-label">Country</label>
+                    <div class="col-sm-9">
+                        <select th:field="*{country}" class="form-control" id="country"  required>
+                            <option value="" th:disabled="disabled" th:selected="selected">Countries</option>
+                            <option th:each= "country : ${countryList}" th:value="${country.countryId}" th:text="${country.countryName}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-            <td>
-                <input type="hidden" th:field="*{calisanId}" />
-            </td>
+            <div class="col-md-6">
+                <div class="form-row">
+                    <label class="col-sm-6 col-form-label" >City</label>
+                    <div class="col-sm-9">
+                        <select  th:field="*{city}"id="form-control-city" class="form-control" required >
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <td>
-                <input type="hidden" th:field="*{adressId}"  />
-            </td>
-            <tr>
-                <td>Şehir:</td>
-                <td>
-                    <input type="text" th:field="*{sehir}" required/>
-                </td>
-            </tr>
-            <tr>
-                <td>İlçe:</td>
-                <td><input type="text" th:field="*{ilce}" required/></td>
-            </tr>
-            <tr>
-                <td>Mahalle:</td>
-                <td><input type="text" th:field="*{mahalle}" required/></td>
-            </tr>
-            <tr>
-                <td>Sokak:</td>
-                <td><input type="text" th:field="*{sokak}" required/></td>
-            </tr>
-            <tr>
-                <td>Bina No:</td>
-                <td><input type="number" th:field="*{binaNum}" min="1" max="200" required/></td>
-            </tr>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" row>
+                    <label class="col-sm-3 col-form-label">District</label>
+                    <div class="col-md-9">
+                        <select th:field="*{district}" id="form-control-district" class="form-control" required >
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <tr>
-                <td colspan="1"><button type="submit">KAYDET</button> </td>
-                <td colspan="1"><button type="reset">Temizle</button></td>
-            </tr>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" row>
+                    <label  class="col-sm-3 col-form-label" for="inputAdressDetails" >Adres Detay</label>
+                    <div class="col-sm-6">
+                        <input type="text" th:field="*{addressDetails}" class="form-control" id="inputAdressDetails" placeholder="1234 Main St" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <td>
+            <input type="hidden" th:field="*{adressDropDownId}" />
+        </td>
+        <td>
+            <input type="hidden" th:field="*{calisanId}" />
+        </td>
+        <button type="submit" id="saveButton" class="btn btn-primary m-3">Kaydet</button>
+        <button type="reset"  id="resetButton" class="btn btn-primary" >Temizle</button>
 
-        </table>
+
     </form>
 
 </div>
 <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js/}"></script>
 <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(
+        listCity = function (){
+            $('#country').change(function () {
+                $.getJSON('/cityByCountry?',{
+                        country_id : $('option:selected','#country').attr("value"),
+                        ajax : true
+                    },
+                    function (data) {
+                        var html ='<option  disabled value="">City</option>';
+                        var len = data.length;
+                        for (var i=0;i<len;i++){
+                            html+='<option value ="'+data[i].cityId+ '">'
+                                + data[i].cityName+'</option>';
+                        }
+                        html+='</option>';
+                        $('#form-control-city').html(html)
+                    });
+
+            });
+        });
+
+
+    $(document).ready(
+        listDistrict = function () {
+            $('#form-control-city').change(function () {
+                $.getJSON('/districtsByCity?',{
+                        city_id : $('option:selected','#form-control-city').attr("value")
+                    },
+                    function (data) {
+                        var html ='<option  disabled value="">District</option>';
+                        var len = data.length;
+                        for (var i=0;i<len;i++){
+                            html+='<option value ="'+data[i].districtId+ '">'
+                                + data[i].districtName+'</option>';
+                        }
+                        html+='</option>';
+                        $('#form-control-district').html(html)
+                    });
+
+            });
+        });
+
+    $(document).ready(
+        listDistrictReset = function () {
+            $('#country').change(function () {
+                var html ='<option  disabled value="">District</option>';
+                html+='</option>';
+                $('#form-control-district').html(html)
+            });
+        });
+
+</script>
+
 </body>
 </html>

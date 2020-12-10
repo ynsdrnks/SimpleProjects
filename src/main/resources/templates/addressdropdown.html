@@ -10,6 +10,8 @@
 
 <div align="center">
     <h1>Çalışan Adres Select-Option</h1>
+
+    <a th:href="@{'/'}">Home Page</a><br><br>
 </div>
 <form action="#"  th:object="${addressDropDown}" th:action="@{'/saveAddressDropDown/'+${clsnId}}" method="post"  >
 <div class="form-row">
@@ -120,29 +122,6 @@
                 $('#form-control-district').html(html)
             });
         });
-
-    $(document).ready(function () {
-        $('saveButton').click(function () {
-            $.ajax({
-                url : ""
-            })
-        })
-    })
-    $('#saveButton').click(
-        function () {
-            alert('Save Tıklandı!');
-            $.ajax(
-                { url: ""
-
-                }
-            )
-        });
-    $('#resetButton').click(
-        function () {
-            listDistrictReset();
-        }
-    );
-
 
 </script>
 
