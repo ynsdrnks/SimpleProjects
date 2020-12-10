@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @Table(name = "districts")
 @Entity
@@ -14,12 +16,12 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Districts implements Serializable {
+public class District implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "district_id",unique = true,nullable = false)
     private Integer districtId;
 
@@ -30,7 +32,8 @@ public class Districts implements Serializable {
     @JoinColumn(name = "cityId",nullable = false)
     private City city;
 
-    public Districts(Integer id, String districtName) {
+
+    public District(Integer id, String districtName) {
         this.districtId = id;
         this.districtName = districtName;
     }

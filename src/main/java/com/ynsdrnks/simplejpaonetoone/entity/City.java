@@ -32,7 +32,8 @@ public class City implements Serializable {
     private Country country;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "city")
-    private Set<Districts> districts;
+    private Set<District> districts;
+
 
     public City(Integer cityId, String cityName) {
         this.cityId = cityId;

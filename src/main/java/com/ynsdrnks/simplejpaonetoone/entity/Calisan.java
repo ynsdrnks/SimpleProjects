@@ -41,4 +41,8 @@ public class Calisan{
     @JoinColumn(name = "clsn_id",referencedColumnName = "clsn_id")
     private List<Adress> adresses;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "clsn_id",referencedColumnName = "clsn_id")
+    private List<AddressDropDown> addressDropDowns;
+
 }

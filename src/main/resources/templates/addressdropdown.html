@@ -11,13 +11,13 @@
 <div align="center">
     <h1>Çalışan Adres Select-Option</h1>
 </div>
-<form>
+<form action="#"  th:object="${addressDropDown}" th:action="@{'/saveAddressDropDown/'+${clsnId}}" method="post"  >
 <div class="form-row">
     <div class="col-md-6  select-arrow-active " >
         <div class="form-group" row>
             <label class="col-sm-3 col-form-label">Country</label>
             <div class="col-sm-9">
-                <select class="form-control" id="country"  required>
+                <select th:field="*{country}" class="form-control" id="country"  required>
                     <option value="" th:disabled="disabled" th:selected="selected">Countries</option>
                     <option th:each= "country : ${countryList}" th:value="${country.countryId}" th:text="${country.countryName}"></option>
                 </select>
@@ -29,7 +29,7 @@
         <div class="form-row">
         <label class="col-sm-6 col-form-label" >City</label>
         <div class="col-sm-9">
-            <select  id="form-control-city" class="form-control" required >
+            <select  th:field="*{city}"id="form-control-city" class="form-control" required >
             </select>
         </div>
         </div>
@@ -41,7 +41,7 @@
             <div class="form-group" row>
                 <label class="col-sm-3 col-form-label">District</label>
                 <div class="col-md-9">
-                    <select id="form-control-district" class="form-control" required >
+                    <select th:field="*{district}" id="form-control-district" class="form-control" required >
                     </select>
                 </div>
             </div>
@@ -53,7 +53,7 @@
             <div class="form-group" row>
                 <label  class="col-sm-3 col-form-label" for="inputAdressDetails" >Adres Detay</label>
                 <div class="col-sm-6">
-                <input type="text" class="form-control" id="inputAdressDetails" placeholder="1234 Main St" required>
+                <input type="text" th:field="*{addressDetails}" class="form-control" id="inputAdressDetails" placeholder="1234 Main St" required>
                 </div>
             </div>
         </div>
@@ -69,25 +69,26 @@
 
 <script type="text/javascript">
 
+
     $(document).ready(
         listCity = function (){
             $('#country').change(function () {
-            $.getJSON('/cityByCountry?',{
-                country_id : $('option:selected','#country').attr("value"),
-                ajax : true
-                },
-                function (data) {
-                    var html ='<option  disabled value="">City</option>';
-                    var len = data.length;
-                    for (var i=0;i<len;i++){
-                        html+='<option value ="'+data[i].cityId+ '">'
-                            + data[i].cityName+'</option>';
-                    }
-                    html+='</option>';
-                    $('#form-control-city').html(html)
-                });
+                $.getJSON('/cityByCountry?',{
+                        country_id : $('option:selected','#country').attr("value"),
+                        ajax : true
+                    },
+                    function (data) {
+                        var html ='<option  disabled value="">City</option>';
+                        var len = data.length;
+                        for (var i=0;i<len;i++){
+                            html+='<option value ="'+data[i].cityId+ '">'
+                                + data[i].cityName+'</option>';
+                        }
+                        html+='</option>';
+                        $('#form-control-city').html(html)
+                    });
 
-        });
+            });
         });
 
 
@@ -114,10 +115,10 @@
     $(document).ready(
         listDistrictReset = function () {
             $('#country').change(function () {
-                        var html ='<option  disabled value="">District</option>';
-                        html+='</option>';
-                        $('#form-control-district').html(html)
-                    });
+                var html ='<option  disabled value="">District</option>';
+                html+='</option>';
+                $('#form-control-district').html(html)
+            });
         });
 
     $(document).ready(function () {
@@ -128,25 +129,20 @@
         })
     })
     $('#saveButton').click(
-    function () {
-        alert('Save Tıklandı!');
-        $.ajax(
-            { url: ""
+        function () {
+            alert('Save Tıklandı!');
+            $.ajax(
+                { url: ""
 
-            }
-        )
-    });
+                }
+            )
+        });
     $('#resetButton').click(
-      function () {
-        listDistrictReset();
-      }
-        );
-    
-$(function () {
-$('#country').change(function () {
-var country = $('#country option:selected').text();
-})
-})
+        function () {
+            listDistrictReset();
+        }
+    );
+
 
 </script>
 

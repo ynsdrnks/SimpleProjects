@@ -2,10 +2,7 @@ package com.ynsdrnks.simplejpaonetoone.controller;
 
 import com.ynsdrnks.simplejpaonetoone.converter.Converter;
 import com.ynsdrnks.simplejpaonetoone.entity.*;
-import com.ynsdrnks.simplejpaonetoone.service.impl.AdressServiceImpl;
-import com.ynsdrnks.simplejpaonetoone.service.impl.CalisanServiceImpl;
-import com.ynsdrnks.simplejpaonetoone.service.impl.CountryServiceImpl;
-import com.ynsdrnks.simplejpaonetoone.service.impl.MoreInfoServiceImpl;
+import com.ynsdrnks.simplejpaonetoone.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +26,8 @@ public class CalisanController {
     Converter converter;
     @Autowired
     CountryServiceImpl countryService;
+    @Autowired
+    AddressDropDownImpl addressDropDownService;
 
     @RequestMapping("/")
     public String index(Model model){
@@ -175,22 +174,41 @@ public class CalisanController {
         return "redirect:/listAdresses/{clsnId}";
     }
 
+//    @GetMapping("/listAdresses/addAdress/{clsnId}")
+//    public String adresssad(Model model,@PathVariable(name ="clsnId")Long id){
+//        Adress adress = new Adress();
+//        adress.setCalisanId(id);
+//        model.addAttribute("countryList",countryService.findAllCountries());
+//        model.addAttribute("adress",adress);
+//        return "addressdropdown";
+//    }
+
+
+
+
+    //dropdown
+
     @GetMapping("/listAdresses/addAdress/{clsnId}")
-    public String adresssad(Model model,@PathVariable(name ="clsnId")Long id){
-        Adress adress = new Adress();
-        adress.setCalisanId(id);
+    public String adresssAd(Model model,@PathVariable(name ="clsnId")Long id){
+        AddressDropDown addressDropDown = new AddressDropDown();
+        addressDropDown.setCalisanId(id);
         model.addAttribute("countryList",countryService.findAllCountries());
+        model.addAttribute("addressDropDown",addressDropDown);
+        model.addAttribute("country",addressDropDown.getCountry());
+        model.addAttribute("city",addressDropDown.getCity());
+        model.addAttribute("district",addressDropDown.getDistrict());
+        model.addAttribute("adressDetails",addressDropDown.getAddressDetails());
         return "addressdropdown";
     }
 
-    //dropdown
-    @RequestMapping(value = "/saveAdressDropDown/{clsnId}",method = RequestMethod.POST)
-    public ModelAndView saveAdresss(@PathVariable(name = "clsnId") Long clsnId,@ModelAttribute("address")@RequestBody Adress adress) {
+    @RequestMapping(value = "/saveAddressDropDown/{clsnId}",method = RequestMethod.POST)
+    public String saveAdresss(@PathVariable(name = "clsnId") Long clsnId,@ModelAttribute("address")@RequestBody AddressDropDown addressDropDown) {
         ModelAndView mav = new ModelAndView();
-        calisanService.getByCalisanId(adress.getCalisanId()).getAdresses().add(adress);
-        adressService.saveAdress(adress);
-        mav.addObject("addressList",adressService.getAdressById(clsnId));
-        return  mav;
+        calisanService.getByCalisanId(clsnId).getAddressDropDowns().add(addressDropDown);
+        addressDropDown.setCalisanId(clsnId);
+        addressDropDown.setAddressDetails("asfasfasa");
+        addressDropDownService.saveAdress(addressDropDown);
+        return  "redirect:/listAdresses/{clsnId}";
     }
 
 }

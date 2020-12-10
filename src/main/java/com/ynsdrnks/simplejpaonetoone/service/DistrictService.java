@@ -1,11 +1,11 @@
 package com.ynsdrnks.simplejpaonetoone.service;
 
-import com.ynsdrnks.simplejpaonetoone.entity.Districts;
+import com.ynsdrnks.simplejpaonetoone.entity.District;
 
 import java.util.List;
 
 public interface DistrictService {
 
-    public List<Districts> findByCity(int id);
+    public List<District> findByCity(int id);
 
 }

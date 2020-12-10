@@ -2,14 +2,9 @@ package com.ynsdrnks.simplejpaonetoone.converter;
 
 import com.ynsdrnks.simplejpaonetoone.dto.*;
 import com.ynsdrnks.simplejpaonetoone.entity.*;
-import com.ynsdrnks.simplejpaonetoone.service.CountryService;
-import com.ynsdrnks.simplejpaonetoone.service.impl.*;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +38,7 @@ public class Converter {
         return countryDto;
     }
 
-    public DistrictsDto districtsConvertToDto(Districts districts){
+    public DistrictsDto districtsConvertToDto(District districts){
         DistrictsDto districtsDto = new DistrictsDto();
         modelMapper.map(districts,districtsDto);
         return districtsDto;
@@ -72,8 +67,8 @@ public class Converter {
     public Country countryConvertToEntity(CountryDto countryDto){
         return modelMapper.map(countryDto,Country.class);
     }
-    public Districts districtsConvertToEntity(DistrictsDto  districtsDto){
-        return modelMapper.map(districtsDto,Districts.class);
+    public District districtsConvertToEntity(DistrictsDto  districtsDto){
+        return modelMapper.map(districtsDto, District.class);
     }
 
     public List<CalisanDto> calisanListConvertToDtoList(List<Calisan> calisanList){
@@ -89,9 +84,12 @@ public class Converter {
         List<CityDto> cityDtos= cityList.stream().map(city -> modelMapper.map(city,CityDto.class)).collect(Collectors.toList());
         return cityDtos;
     }
-    public List<DistrictsDto> districtsListConvertToDtoList(List<Districts> districtsList){
+    public List<DistrictsDto> districtsListConvertToDtoList(List<District> districtsList){
         List<DistrictsDto> districtsDtos= districtsList.stream().map(districts -> modelMapper.map(districts,DistrictsDto.class)).collect(Collectors.toList());
         return districtsDtos;
     }
-
+    public List<AdressDto> adressListConvertToDtoList(List<Adress> adressList){
+        List<AdressDto> adressDtos= adressList.stream().map(adress -> modelMapper.map(adress,AdressDto.class)).collect(Collectors.toList());
+        return adressDtos;
+    }
 }
