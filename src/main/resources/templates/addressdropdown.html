@@ -71,13 +71,11 @@
 
 <script type="text/javascript">
 
-
     $(document).ready(
         listCity = function (){
             $('#country').change(function () {
                 $.getJSON('/cityByCountry?',{
                         country_id : $('option:selected','#country').attr("value"),
-                        ajax : true
                     },
                     function (data) {
                         var html ='<option  disabled value="">City</option>';
@@ -111,15 +109,6 @@
                         $('#form-control-district').html(html)
                     });
 
-            });
-        });
-
-    $(document).ready(
-        listDistrictReset = function () {
-            $('#country').change(function () {
-                var html ='<option  disabled value="">District</option>';
-                html+='</option>';
-                $('#form-control-district').html(html)
             });
         });
 

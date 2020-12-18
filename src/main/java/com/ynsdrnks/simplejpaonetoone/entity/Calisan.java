@@ -3,9 +3,12 @@ package com.ynsdrnks.simplejpaonetoone.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.IndexColumn;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name="calisan")
 @Builder
-public class Calisan{
+public class Calisan implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +44,7 @@ public class Calisan{
     @JoinColumn(name = "clsn_id",referencedColumnName = "clsn_id")
     private List<Adress> adresses;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "clsn_id",referencedColumnName = "clsn_id")
     private List<AddressDropDown> addressDropDowns;

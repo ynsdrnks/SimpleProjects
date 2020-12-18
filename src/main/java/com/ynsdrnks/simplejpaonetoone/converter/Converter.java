@@ -14,10 +14,9 @@ public class Converter {
 
     ModelMapper modelMapper = new ModelMapper();
 
-    public  AdressDto adressConvertToDto(Adress adress){
-        AdressDto adressDto = new AdressDto();
-        modelMapper.map(adress,adressDto);
-        return adressDto;
+    public  AddressDropDownDto adressConvertToDto(AddressDropDown adress){
+        AddressDropDownDto addressDropDownDto = modelMapper.map(adress,AddressDropDownDto.class);
+        return addressDropDownDto;
     }
 
     public CalisanDto calisanConvertToDto(Calisan calisan){
@@ -91,5 +90,11 @@ public class Converter {
     public List<AdressDto> adressListConvertToDtoList(List<Adress> adressList){
         List<AdressDto> adressDtos= adressList.stream().map(adress -> modelMapper.map(adress,AdressDto.class)).collect(Collectors.toList());
         return adressDtos;
+    }
+    public List<AddressDropDownDto> adressDropdownListConvertToDtoList(List<AddressDropDown> adressList){
+        List<AddressDropDownDto> adressDtos= adressList.stream().map(address -> modelMapper.map(address,AddressDropDownDto.class)).collect(Collectors.toList());
+        return adressDtos;
+
+
     }
 }

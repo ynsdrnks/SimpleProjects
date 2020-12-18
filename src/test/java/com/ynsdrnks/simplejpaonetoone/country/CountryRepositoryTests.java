@@ -25,8 +25,6 @@ public class CountryRepositoryTests extends Assert {
 
     @Test
     public void testCreateNewCountry(){
-        Country country = new Country();
-        country.setCountryName("Vietnam");
-        countryRepository.save(country);
+
     }
 }

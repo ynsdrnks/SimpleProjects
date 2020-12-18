@@ -7,5 +7,7 @@ import java.util.List;
 public interface CountryService {
     public Iterable<Country> findAllCountries();
     public Country findCountryById(int id);
+    void save(Country country);
+    void saveList(Iterable<Country> countries);
 
 }

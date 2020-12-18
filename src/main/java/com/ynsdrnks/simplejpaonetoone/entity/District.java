@@ -1,5 +1,6 @@
 package com.ynsdrnks.simplejpaonetoone.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,6 @@ import java.util.Set;
 @AllArgsConstructor
 public class District implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue
@@ -28,6 +28,7 @@ public class District implements Serializable {
     @Column(name = "name")
     private String districtName;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cityId",nullable = false)
     private City city;

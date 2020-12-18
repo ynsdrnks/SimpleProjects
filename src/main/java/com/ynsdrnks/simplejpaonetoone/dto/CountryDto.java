@@ -9,8 +9,10 @@ import java.util.Set;
 @Data
 
 public class CountryDto {
+
     @JsonProperty
     private Integer countryId;
+
     @JsonProperty
     private String countryName;
 

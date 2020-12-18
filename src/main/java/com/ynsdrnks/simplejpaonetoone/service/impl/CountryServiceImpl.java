@@ -28,4 +28,14 @@ public class CountryServiceImpl implements CountryService {
     public Country findCountryById(int id) {
         return countryRepository.findById(id).get();
     }
+
+    @Override
+    public void save(Country country) {
+        countryRepository.save(country);
+    }
+
+    @Override
+    public void saveList(Iterable<Country> countries) {
+        countryRepository.saveAll(countries);
+    }
 }

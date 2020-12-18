@@ -1,5 +1,7 @@
 package com.ynsdrnks.simplejpaonetoone.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ynsdrnks.simplejpaonetoone.entity.AddressDropDown;
 import com.ynsdrnks.simplejpaonetoone.entity.Adress;
 import com.ynsdrnks.simplejpaonetoone.entity.MoreInfo;
 import lombok.Data;
@@ -10,15 +12,13 @@ import java.util.List;
 @Data
 public class CalisanDto {
 
+    @JsonProperty
     private String clsnFirstName;
 
-    private Long clsnId;
-
+    @JsonProperty
     private String clsnLastName;
 
+    @JsonProperty
     private String clsnEmail;
 
-    private MoreInfo moreInfo;
-
-    private List<Adress> adresses;
 }

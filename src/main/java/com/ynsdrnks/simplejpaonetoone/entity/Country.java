@@ -1,5 +1,6 @@
 package com.ynsdrnks.simplejpaonetoone.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Country implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue
     @Column(name = "country_id",unique = true,nullable = false)
@@ -28,8 +29,8 @@ public class Country implements Serializable {
     @Column(name = "name")
     private String countryName;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "country")
     private Set<City> cities;
-
 
 }
