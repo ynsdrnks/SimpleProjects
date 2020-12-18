@@ -124,8 +124,21 @@ public class AddressRestController {
     @PostMapping("/addCountryJson")
     public  ResponseEntity<?> createCountry(@Valid @RequestBody List<Country> countries){
         countryService.saveList(countries);
+
         return ResponseEntity.ok().build();
     }
 
 
+    @PostMapping("/addCityJson")
+    public  ResponseEntity<?> createCity(@Valid @RequestBody List<City> cities){
+        cityService.saveList(cities);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/addDistrictJson")
+    public  ResponseEntity<?> createDistrict(@Valid @RequestBody List<District> districts){
+        districtService.saveList(districts);
+        return ResponseEntity.ok().build();
+    }
 }

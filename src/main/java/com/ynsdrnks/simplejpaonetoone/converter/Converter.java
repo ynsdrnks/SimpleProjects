@@ -83,6 +83,7 @@ public class Converter {
         List<CityDto> cityDtos= cityList.stream().map(city -> modelMapper.map(city,CityDto.class)).collect(Collectors.toList());
         return cityDtos;
     }
+
     public List<DistrictsDto> districtsListConvertToDtoList(List<District> districtsList){
         List<DistrictsDto> districtsDtos= districtsList.stream().map(districts -> modelMapper.map(districts,DistrictsDto.class)).collect(Collectors.toList());
         return districtsDtos;

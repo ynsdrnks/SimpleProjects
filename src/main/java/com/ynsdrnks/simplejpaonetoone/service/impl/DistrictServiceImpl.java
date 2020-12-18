@@ -19,4 +19,14 @@ public class DistrictServiceImpl  implements DistrictService {
     public List<District> findByCity(int id) {
         return districtRepository.findByCity(id);
     }
+
+    @Override
+    public void saveList(Iterable<District> districts) {
+        districtRepository.saveAll(districts);
+    }
+
+    @Override
+    public List<District> findAll() {
+        return districtRepository.findAll();
+    }
 }

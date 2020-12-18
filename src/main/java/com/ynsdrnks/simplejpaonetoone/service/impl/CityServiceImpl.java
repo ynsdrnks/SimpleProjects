@@ -28,4 +28,9 @@ public class CityServiceImpl implements CityService {
     public void saveList(Iterable<City> cities) {
         cityRepository.saveAll(cities);
     }
+
+    @Override
+    public List<City> findAlll() {
+        return cityRepository.findAll();
+    }
 }

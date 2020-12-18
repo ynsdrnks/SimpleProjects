@@ -15,5 +15,5 @@ public class CityDto {
     private String cityName;
 
     @JsonProperty
-    private String countryId;
+    private Integer countryId;
 }
