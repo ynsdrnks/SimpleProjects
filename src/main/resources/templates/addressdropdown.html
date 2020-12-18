@@ -74,7 +74,7 @@
     $(document).ready(
         listCity = function (){
             $('#country').change(function () {
-                $.getJSON('/cityByCountry?',{
+                $.getJSON('/addressApi/cityByCountry?',{
                         country_id : $('option:selected','#country').attr("value"),
                     },
                     function (data) {
@@ -95,7 +95,7 @@
     $(document).ready(
         listDistrict = function () {
             $('#form-control-city').change(function () {
-                $.getJSON('/districtsByCity?',{
+                $.getJSON('/addressApi/districtsByCity?',{
                         city_id : $('option:selected','#form-control-city').attr("value")
                     },
                     function (data) {
