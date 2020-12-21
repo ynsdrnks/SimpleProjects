@@ -51,7 +51,7 @@ public class CalisanRestController {
     }
     @PutMapping("/calisanList/{clsnId}")
     public CalisanDto updateCalisan(@PathVariable Long clsnId,
-                                    @Valid @RequestBody Calisan calisanRequest) {
+                                    @Valid @RequestBody CalisanDto calisanRequest) {
         return calisanRepo.findById(clsnId)
                 .map(calisan -> {
                     calisan.setClsnEmail(calisanRequest.getClsnEmail());
@@ -64,9 +64,9 @@ public class CalisanRestController {
     }
 
     @PostMapping("/calisanList")
-    public CalisanDto createCalisan(@Valid @RequestBody Calisan calisan){
-        calisanRepo.save(calisan);
-        return converter.calisanConvertToDto(calisan);
+    public CalisanDto createCalisan(@Valid @RequestBody CalisanDto calisanReq){
+        calisanService.save(converter.calisanDtoConvertToEntity(calisanReq));
+        return calisanReq;
     }
 
     @DeleteMapping("/calisanList/{clsnId}")

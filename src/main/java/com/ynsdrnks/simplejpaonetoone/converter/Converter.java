@@ -21,57 +21,57 @@ public class Converter {
     @Autowired
     CityServiceImpl cityService;
 
-    public  AddressDropDownDto adressConvertToDto(AddressDropDown adress){
-        AddressDropDownDto addressDropDownDto = modelMapper.map(adress,AddressDropDownDto.class);
-        return addressDropDownDto;
-    }
+//    public  AddressDropDownDto adressConvertToDto(AddressDropDown adress){
+//        AddressDropDownDto addressDropDownDto = modelMapper.map(adress,AddressDropDownDto.class);
+//        return addressDropDownDto;
+//    }
 
     public AddressDropDownDto adresConvertToDto(AddressDropDown addressDropDown){
         AddressDropDownDto dropDownDto = new AddressDropDownDto();
-        dropDownDto.setCalisan_id(addressDropDown.getCalisanId());
+        dropDownDto.setCalisanId(addressDropDown.getCalisanId());
         dropDownDto.setCountry(countryConvertToDto(addressDropDown.getCountry()));
         dropDownDto.setCity(cityConvertToDto(addressDropDown.getCity()));
         dropDownDto.setDistrict(districtsConvertToDto(addressDropDown.getDistrict()));
-        dropDownDto.setAddress_details(addressDropDown.getAddressDetails());
+        dropDownDto.setAdressDetails(addressDropDown.getAddressDetails());
         return dropDownDto;
     }
 
     public CalisanDto calisanConvertToDto(Calisan calisan){
         CalisanDto calisanDto = new CalisanDto();
-        calisanDto.setClsn_id(calisan.getClsnId());
-        calisanDto.setClsn_email(calisan.getClsnEmail());
-        calisanDto.setClsn_firstName(calisan.getClsnFirstName());
-        calisanDto.setClsn_lastName(calisan.getClsnLastName());
+        calisanDto.setClsnId(calisan.getClsnId());
+        calisanDto.setClsnEmail(calisan.getClsnEmail());
+        calisanDto.setClsnFirstName(calisan.getClsnFirstName());
+        calisanDto.setClsnLastName(calisan.getClsnLastName());
         return  calisanDto;
     }
 
     public MoreInfoDto moreInfoConvertToDto(MoreInfo moreInfo){
         MoreInfoDto moreInfoDto = new MoreInfoDto();
-        moreInfoDto.setNum_sibl(moreInfo.getNumSibl());
-        moreInfoDto.setMot_name(moreInfo.getMotName());
-        moreInfoDto.setMoreinfo_id(moreInfo.getMoreInfoId());
-        moreInfoDto.setFat_name(moreInfo.getFatName());
+        moreInfoDto.setNumSibl(moreInfo.getNumSibl());
+        moreInfoDto.setMotName(moreInfo.getMotName());
+        moreInfoDto.setMoreinfoId(moreInfo.getMoreInfoId());
+        moreInfoDto.setFatName(moreInfo.getFatName());
         return  moreInfoDto;
     }
 
     public CountryDto countryConvertToDto(Country country){
         CountryDto countryDto = new CountryDto();
-        countryDto.setCountry_id(country.getCountryId());
-        countryDto.setCountry_name(country.getCountryName());
+        countryDto.setCountryId(country.getCountryId());
+        countryDto.setCountryName(country.getCountryName());
         return countryDto;
     }
 
     public DistrictsDto districtsConvertToDto(District districts){
         DistrictsDto districtsDto = new DistrictsDto();
-        districtsDto.setDistrict_id(districts.getDistrictId());
-        districtsDto.setDistrict_name(districts.getDistrictName());
+        districtsDto.setDistrictId(districts.getDistrictId());
+        districtsDto.setDistrictName(districts.getDistrictName());
         return districtsDto;
     }
 
     public CityDto cityConvertToDto(City city){
         CityDto cityDto = new CityDto();
-        cityDto.setCity_id(city.getCityId());
-        cityDto.setCity_name(city.getCityName());
+        cityDto.setCityId(city.getCityId());
+        cityDto.setCityName(city.getCityName());
         return cityDto;
     }
 //    public  Adress adressConvertToEntity(AdressDto adressDto){
@@ -80,41 +80,41 @@ public class Converter {
 
     public Calisan calisanDtoConvertToEntity(CalisanDto calisanDto){
         Calisan calisan = new Calisan();
-        calisan.setClsnId(calisanDto.getClsn_id());
-        calisan.setClsnFirstName(calisanDto.getClsn_firstName());
-        calisan.setClsnLastName(calisanDto.getClsn_lastName());
-        calisan.setClsnEmail(calisanDto.getClsn_email());
+        calisan.setClsnId(calisanDto.getClsnId());
+        calisan.setClsnFirstName(calisanDto.getClsnFirstName());
+        calisan.setClsnLastName(calisanDto.getClsnLastName());
+        calisan.setClsnEmail(calisanDto.getClsnEmail());
         return  calisan;
     }
 
     public  MoreInfo moreInfoConvertToEntity(MoreInfoDto moreInfoDto){
         MoreInfo moreInfo = new MoreInfo();
-        moreInfo.setMoreInfoId(moreInfoDto.getMoreinfo_id());
-        moreInfo.setNumSibl(moreInfoDto.getNum_sibl());
-        moreInfo.setMotName(moreInfoDto.getMot_name());
-        moreInfo.setFatName(moreInfoDto.getFat_name());
+        moreInfo.setMoreInfoId(moreInfoDto.getMoreinfoId());
+        moreInfo.setNumSibl(moreInfoDto.getNumSibl());
+        moreInfo.setMotName(moreInfoDto.getMotName());
+        moreInfo.setFatName(moreInfoDto.getFatName());
         return moreInfo;
     }
 
     public City cityConvertToEntity(CityDto cityDto){
         City city = new City();
-        city.setCityId(cityDto.getCity_id());
-        city.setCityName(cityDto.getCity_name());
+        city.setCityId(cityDto.getCityId());
+        city.setCityName(cityDto.getCityName());
         return city;
     }
 
     public Country countryConvertToEntity(CountryDto countryDto){
         Country country = new Country();
-        country.setCountryName(countryDto.getCountry_name());
-        country.setCities(countryService.findCountryById(countryDto.getCountry_id()).getCities());
-        country.setCountryId(countryDto.getCountry_id());
+        country.setCountryName(countryDto.getCountryName());
+        country.setCities(countryService.findCountryById(countryDto.getCountryId()).getCities());
+        country.setCountryId(countryDto.getCountryId());
         return country;
     }
 
     public District districtsConvertToEntity(DistrictsDto  districtsDto){
         District district = new District();
-        district.setDistrictName(districtsDto.getDistrict_name());
-        district.setDistrictId(districtsDto.getDistrict_id());
+        district.setDistrictName(districtsDto.getDistrictName());
+        district.setDistrictId(districtsDto.getDistrictId());
         return district;
     }
 
@@ -128,13 +128,26 @@ public class Converter {
         return countryList.stream().map(this::countryConvertToDto).collect(Collectors.toList());
     }
 
+    public List<Country> countryDtoListConvertToEntityList(List<CountryDto> countryDtos){
+
+        return countryDtos.stream().map(this::countryConvertToEntity).collect(Collectors.toList());
+
+    }
+
     public List<CityDto> cityListConvertToDtoList(List<City> cityList){
 
         return cityList.stream().map(this::cityConvertToDto).collect(Collectors.toList());
     }
+    public List<City> cityDtoListConvertToList(List<CityDto> cityDtos){
+
+        return cityDtos.stream().map(this::cityConvertToEntity).collect(Collectors.toList());
+    }
 
     public List<DistrictsDto> districtsListConvertToDtoList(List<District> districtsList){
        return districtsList.stream().map(this::districtsConvertToDto).collect(Collectors.toList());
+    }
+    public List<District> districtDtoListConvertToEntityList(List<DistrictsDto> districtsDtos){
+        return districtsDtos.stream().map(this::districtsConvertToEntity).collect(Collectors.toList());
     }
 //    public List<AdressDto> adressListConvertToDtoList(List<Adress> adressList){
 //       return adressList.stream().map(thi)

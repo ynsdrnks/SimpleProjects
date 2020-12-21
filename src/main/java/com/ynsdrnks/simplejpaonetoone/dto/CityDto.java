@@ -8,11 +8,11 @@ import lombok.Data;
 
 public class CityDto {
 
-    @JsonProperty
-    private Integer city_id;
+    @JsonProperty("city_id")
+    private Integer cityId;
 
-    @JsonProperty
-    private String city_name;
+    @JsonProperty("city_name")
+    private String cityName;
 
 
 }

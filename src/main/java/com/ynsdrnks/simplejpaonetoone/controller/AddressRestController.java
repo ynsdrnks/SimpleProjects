@@ -84,33 +84,39 @@ public class AddressRestController {
         List<AddressDropDown> adressList = calisanService.getByCalisanId(calisanId).getAddressDropDowns();
         return new ResponseEntity<List<AddressDropDownDto>>(converter.adressDropdownListConvertToDtoList(adressList),HttpStatus.OK);
     }
+
     @GetMapping("/allAddress/{clsnId}/{addressId}")
     public  AddressDropDownDto getOneAddress(@PathVariable("clsnId")Long calisanId,@PathVariable("addressId")Long addressId){
-        return converter.adressConvertToDto(addressService.getAdressById(addressId));
+        return converter.adresConvertToDto(addressService.getAdressById(addressId));
     }
 
 
     @PutMapping("/allAddress/{clsnId}/{addressId}")
     public  AddressDropDownDto updateAddress(@PathVariable("clsnId") Long clsnId,@PathVariable("addressId")Long addressId,
-                                             @Valid @RequestBody AddressDropDown addressDropDownReq){
+                                             @Valid @RequestBody AddressDropDownDto addressDropDownDtoReq){
         return addressDropDownRepo.findById(addressId)
                 .map(addressDropDown -> {
-                    addressDropDown.setAddressDetails(addressDropDownReq.getAddressDetails());
-                    addressDropDown.setCity(addressDropDownReq.getCity());
-                    addressDropDown.setCountry(addressDropDownReq.getCountry());
-                    addressDropDown.setDistrict(addressDropDownReq.getDistrict());
+                    addressDropDown.setAddressDetails(addressDropDownDtoReq.getAdressDetails());
+                    addressDropDown.setDistrict(districtService.findDistrictById(addressDropDownDtoReq.getDistrict().getDistrictId()));
+                    addressDropDown.setCity(districtService.findDistrictById(addressDropDownDtoReq.getDistrict().getDistrictId()).getCity());
+                    addressDropDown.setCountry(districtService.findDistrictById(addressDropDownDtoReq.getDistrict().getDistrictId()).getCity().getCountry());
                     addressDropDown.setCalisanId(clsnId);
                     addressService.saveAdress(addressDropDown);
-                    return converter.adressConvertToDto(addressDropDown);
+                    return converter.adresConvertToDto(addressDropDown);
                 }).orElseThrow(() -> new ResourceNotFoundException("not found : "+addressId));
     }
 
     @PostMapping("/allAddress/{clsnId}")
-    public  AddressDropDownDto createAddress(@PathVariable("clsnId")Long calisanId,@Valid @RequestBody AddressDropDown addressDropDown){
+    public  AddressDropDownDto createAddress(@PathVariable("clsnId")Long calisanId,@Valid @RequestBody AddressDropDownDto addressDropDownDtoReq){
+        AddressDropDown addressDropDown = new AddressDropDown();
         addressDropDown.setCalisanId(calisanId);
+        addressDropDown.setAddressDetails(addressDropDownDtoReq.getAdressDetails());
+        addressDropDown.setDistrict(districtService.findDistrictById(addressDropDownDtoReq.getDistrict().getDistrictId()));
+        addressDropDown.setCity(districtService.findDistrictById(addressDropDownDtoReq.getDistrict().getDistrictId()).getCity());
+        addressDropDown.setCountry(districtService.findDistrictById(addressDropDownDtoReq.getDistrict().getDistrictId()).getCity().getCountry());
         calisanService.getByCalisanId(calisanId).getAddressDropDowns().add(addressDropDown);
         addressService.saveAdress(addressDropDown);
-        return converter.adressConvertToDto(addressDropDown);
+        return converter.adresConvertToDto(addressDropDown);
     }
 
     @DeleteMapping("/allAddress/{clsnId}/{addressId}")
@@ -118,27 +124,27 @@ public class AddressRestController {
         return addressDropDownRepo.findById(addressId).map(addressDropDown -> {
             addressService.deleteAdressById(addressId);
             return ResponseEntity.ok().build();
-        }).orElseThrow(()-> new ResourceNotFoundException("bulunamadı id = "+addressId));
+        }).orElseThrow(()-> new ResourceNotFoundException("adres bulunamadı id = "+addressId));
     }
 
     @PostMapping("/addCountryJson")
-    public  ResponseEntity<?> createCountry(@Valid @RequestBody List<Country> countries){
-        countryService.saveList(countries);
+    public  ResponseEntity<?> createCountry(@Valid @RequestBody List<CountryDto> countriesReq){
+        countryService.saveList(converter.countryDtoListConvertToEntityList(countriesReq));
 
         return ResponseEntity.ok().build();
     }
 
 
     @PostMapping("/addCityJson")
-    public  ResponseEntity<?> createCity(@Valid @RequestBody List<City> cities){
-        cityService.saveList(cities);
-
+    public  ResponseEntity<?> createCity(@Valid @RequestBody List<CityDto> cityDtos){
+        cityService.saveList(converter.cityDtoListConvertToList(cityDtos));
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/addDistrictJson")
-    public  ResponseEntity<?> createDistrict(@Valid @RequestBody List<District> districts){
-        districtService.saveList(districts);
+    public  ResponseEntity<?> createDistrict(@Valid @RequestBody List<DistrictsDto> districtsDtos){
+        districtService.saveList(converter.districtDtoListConvertToEntityList(districtsDtos));
         return ResponseEntity.ok().build();
     }
+
 }

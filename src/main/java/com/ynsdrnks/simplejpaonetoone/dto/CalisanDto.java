@@ -12,16 +12,16 @@ import java.util.List;
 @Data
 public class CalisanDto {
 
-    @JsonProperty
-    private String clsn_firstName;
+    @JsonProperty("clsn_first_name")
+    private String clsnFirstName;
 
-    @JsonProperty
-    private String clsn_lastName;
+    @JsonProperty("clsn_last_name")
+    private String clsnLastName;
 
-    @JsonProperty
-    private String clsn_email;
+    @JsonProperty("clsn_email")
+    private String clsnEmail;
 
-    @JsonProperty
-    private Long clsn_id;
+    @JsonProperty("clsn_id")
+    private Long clsnId;
 
 }

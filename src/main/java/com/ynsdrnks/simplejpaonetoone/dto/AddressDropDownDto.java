@@ -9,11 +9,11 @@ import lombok.Data;
 @Data
 public class AddressDropDownDto {
 
-    @JsonProperty
-    private Long calisan_id;
+    @JsonProperty("calisan_id")
+    private Long calisanId;
 
-    @JsonProperty
-    private String address_details;
+    @JsonProperty("adress_details")
+    private String adressDetails;
 
     @JsonProperty
     private CountryDto country;
