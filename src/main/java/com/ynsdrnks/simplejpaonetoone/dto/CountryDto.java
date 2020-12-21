@@ -11,10 +11,10 @@ import java.util.Set;
 public class CountryDto {
 
     @JsonProperty
-    private Integer countryId;
+    private Integer country_id;
 
     @JsonProperty
-    private String countryName;
+    private String country_name;
 
 
 }

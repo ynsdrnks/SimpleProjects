@@ -2,7 +2,6 @@ package com.ynsdrnks.simplejpaonetoone.converter;
 
 import com.ynsdrnks.simplejpaonetoone.dto.*;
 import com.ynsdrnks.simplejpaonetoone.entity.*;
-import com.ynsdrnks.simplejpaonetoone.service.CityService;
 import com.ynsdrnks.simplejpaonetoone.service.impl.CityServiceImpl;
 import com.ynsdrnks.simplejpaonetoone.service.impl.CountryServiceImpl;
 import org.modelmapper.ModelMapper;
@@ -29,49 +28,49 @@ public class Converter {
 
     public AddressDropDownDto adresConvertToDto(AddressDropDown addressDropDown){
         AddressDropDownDto dropDownDto = new AddressDropDownDto();
-        dropDownDto.setCalisanId(addressDropDown.getCalisanId());
-        dropDownDto.setCountry(addressDropDown.getCountry());
-        dropDownDto.setCity(addressDropDown.getCity());
-        dropDownDto.setDistrict(addressDropDown.getDistrict());
-        dropDownDto.setAddressDetails(addressDropDown.getAddressDetails());
+        dropDownDto.setCalisan_id(addressDropDown.getCalisanId());
+        dropDownDto.setCountry(countryConvertToDto(addressDropDown.getCountry()));
+        dropDownDto.setCity(cityConvertToDto(addressDropDown.getCity()));
+        dropDownDto.setDistrict(districtsConvertToDto(addressDropDown.getDistrict()));
+        dropDownDto.setAddress_details(addressDropDown.getAddressDetails());
         return dropDownDto;
     }
 
     public CalisanDto calisanConvertToDto(Calisan calisan){
         CalisanDto calisanDto = new CalisanDto();
-        calisanDto.setClsnEmail(calisan.getClsnEmail());
-        calisanDto.setClsnFirstName(calisan.getClsnFirstName());
-        calisanDto.setClsnLastName(calisan.getClsnLastName());
+        calisanDto.setClsn_email(calisan.getClsnEmail());
+        calisanDto.setClsn_firstName(calisan.getClsnFirstName());
+        calisanDto.setClsn_lastName(calisan.getClsnLastName());
         return  calisanDto;
     }
 
     public MoreInfoDto moreInfoConvertToDto(MoreInfo moreInfo){
         MoreInfoDto moreInfoDto = new MoreInfoDto();
-        moreInfoDto.setNumSibl(moreInfo.getNumSibl());
-        moreInfoDto.setMotName(moreInfo.getMotName());
-        moreInfoDto.setMoreInfoId(moreInfo.getMoreInfoId());
-        moreInfoDto.setFatName(moreInfo.getFatName());
+        moreInfoDto.setNum_sibl(moreInfo.getNumSibl());
+        moreInfoDto.setMot_name(moreInfo.getMotName());
+        moreInfoDto.setMoreinfo_id(moreInfo.getMoreInfoId());
+        moreInfoDto.setFat_name(moreInfo.getFatName());
         return  moreInfoDto;
     }
 
     public CountryDto countryConvertToDto(Country country){
         CountryDto countryDto = new CountryDto();
-        countryDto.setCountryId(country.getCountryId());
-        countryDto.setCountryName(country.getCountryName());
+        countryDto.setCountry_id(country.getCountryId());
+        countryDto.setCountry_name(country.getCountryName());
         return countryDto;
     }
 
     public DistrictsDto districtsConvertToDto(District districts){
         DistrictsDto districtsDto = new DistrictsDto();
-        districtsDto.setDistrictId(districts.getDistrictId());
-        districtsDto.setDistrictName(districts.getDistrictName());
+        districtsDto.setDistrict_id(districts.getDistrictId());
+        districtsDto.setDistrict_name(districts.getDistrictName());
         return districtsDto;
     }
 
     public CityDto cityConvertToDto(City city){
         CityDto cityDto = new CityDto();
-        cityDto.setCityId(city.getCityId());
-        cityDto.setCityName(city.getCityName());
+        cityDto.setCity_id(city.getCityId());
+        cityDto.setCity_name(city.getCityName());
         return cityDto;
     }
 //    public  Adress adressConvertToEntity(AdressDto adressDto){
@@ -80,41 +79,40 @@ public class Converter {
 
     public Calisan calisanDtoConvertToEntity(CalisanDto calisanDto){
         Calisan calisan = new Calisan();
-        calisan.setClsnFirstName(calisanDto.getClsnFirstName());
-        calisan.setClsnLastName(calisanDto.getClsnLastName());
-        calisan.setClsnEmail(calisanDto.getClsnEmail());
+        calisan.setClsnFirstName(calisanDto.getClsn_firstName());
+        calisan.setClsnLastName(calisanDto.getClsn_lastName());
+        calisan.setClsnEmail(calisanDto.getClsn_email());
         return  calisan;
     }
 
     public  MoreInfo moreInfoConvertToEntity(MoreInfoDto moreInfoDto){
         MoreInfo moreInfo = new MoreInfo();
-        moreInfo.setMoreInfoId(moreInfoDto.getMoreInfoId());
-        moreInfo.setNumSibl(moreInfoDto.getNumSibl());
-        moreInfo.setMotName(moreInfoDto.getMotName());
-        moreInfo.setFatName(moreInfoDto.getFatName());
+        moreInfo.setMoreInfoId(moreInfoDto.getMoreinfo_id());
+        moreInfo.setNumSibl(moreInfoDto.getNum_sibl());
+        moreInfo.setMotName(moreInfoDto.getMot_name());
+        moreInfo.setFatName(moreInfoDto.getFat_name());
         return moreInfo;
     }
 
     public City cityConvertToEntity(CityDto cityDto){
         City city = new City();
-        city.setCityId(cityDto.getCityId());
-        city.setCityName(cityDto.getCityName());
+        city.setCityId(cityDto.getCity_id());
+        city.setCityName(cityDto.getCity_name());
         return city;
     }
 
     public Country countryConvertToEntity(CountryDto countryDto){
         Country country = new Country();
-        country.setCountryName(countryDto.getCountryName());
-        country.setCities(countryService.findCountryById(countryDto.getCountryId()).getCities());
-        country.setCountryId(countryDto.getCountryId());
+        country.setCountryName(countryDto.getCountry_name());
+        country.setCities(countryService.findCountryById(countryDto.getCountry_id()).getCities());
+        country.setCountryId(countryDto.getCountry_id());
         return country;
     }
 
     public District districtsConvertToEntity(DistrictsDto  districtsDto){
         District district = new District();
-        district.setCity(cityService.findCityById(districtsDto.getCityId()));
-        district.setDistrictName(districtsDto.getDistrictName());
-        district.setDistrictId(districtsDto.getDistrictId());
+        district.setDistrictName(districtsDto.getDistrict_name());
+        district.setDistrictId(districtsDto.getDistrict_id());
         return district;
     }
 

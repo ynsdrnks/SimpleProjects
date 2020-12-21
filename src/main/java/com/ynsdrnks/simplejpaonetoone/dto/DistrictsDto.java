@@ -9,13 +9,12 @@ import lombok.Data;
 public class DistrictsDto {
 
     @JsonProperty
-    private Integer districtId;
+    private Integer district_id;
 
     @JsonProperty
-    private String districtName;
+    private String district_name;
     
-    @JsonProperty
-    private Integer cityId;
+
 
 
 }

@@ -10,18 +10,18 @@ import lombok.Data;
 public class AddressDropDownDto {
 
     @JsonProperty
-    private Long calisanId;
+    private Long calisan_id;
 
     @JsonProperty
-    private String addressDetails;
+    private String address_details;
 
     @JsonProperty
-    private Country country;
+    private CountryDto country;
 
     @JsonProperty
-    private City city;
+    private CityDto city;
 
     @JsonProperty
-    private District district;
+    private DistrictsDto district;
 
 }

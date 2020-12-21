@@ -9,12 +9,12 @@ import javax.persistence.Column;
 
 public class MoreInfoDto {
     @JsonProperty
-    private Long moreInfoId;
+    private Long moreinfo_id;
     @JsonProperty
-    private String motName;
+    private String mot_name;
     @JsonProperty
-    private String fatName;
+    private String fat_name;
     @JsonProperty
-    private int numSibl;
+    private int num_sibl;
 
 }
