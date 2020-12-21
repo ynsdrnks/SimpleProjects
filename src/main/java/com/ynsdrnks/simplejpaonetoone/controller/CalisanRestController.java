@@ -57,8 +57,7 @@ public class CalisanRestController {
                     calisan.setClsnEmail(calisanRequest.getClsnEmail());
                     calisan.setClsnLastName(calisanRequest.getClsnLastName());
                     calisan.setClsnFirstName(calisanRequest.getClsnFirstName());
-                    calisanRepo.save(calisan);
-
+                    calisanService.save(calisan);
                     return converter.calisanConvertToDto(calisan);
 
                 }).orElseThrow(()-> new ResourceNotFoundException("bulunamadı"+clsnId));

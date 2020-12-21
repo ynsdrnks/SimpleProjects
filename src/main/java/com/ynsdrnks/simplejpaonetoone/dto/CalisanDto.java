@@ -21,4 +21,7 @@ public class CalisanDto {
     @JsonProperty
     private String clsn_email;
 
+    @JsonProperty
+    private Long clsn_id;
+
 }

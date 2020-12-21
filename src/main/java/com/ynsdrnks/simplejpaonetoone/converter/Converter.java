@@ -38,6 +38,7 @@ public class Converter {
 
     public CalisanDto calisanConvertToDto(Calisan calisan){
         CalisanDto calisanDto = new CalisanDto();
+        calisanDto.setClsn_id(calisan.getClsnId());
         calisanDto.setClsn_email(calisan.getClsnEmail());
         calisanDto.setClsn_firstName(calisan.getClsnFirstName());
         calisanDto.setClsn_lastName(calisan.getClsnLastName());
@@ -79,6 +80,7 @@ public class Converter {
 
     public Calisan calisanDtoConvertToEntity(CalisanDto calisanDto){
         Calisan calisan = new Calisan();
+        calisan.setClsnId(calisanDto.getClsn_id());
         calisan.setClsnFirstName(calisanDto.getClsn_firstName());
         calisan.setClsnLastName(calisanDto.getClsn_lastName());
         calisan.setClsnEmail(calisanDto.getClsn_email());
