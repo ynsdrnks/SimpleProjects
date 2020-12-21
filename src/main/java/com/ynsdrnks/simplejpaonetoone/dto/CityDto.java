@@ -14,6 +14,5 @@ public class CityDto {
     @JsonProperty
     private String cityName;
 
-    @JsonProperty
-    private Integer countryId;
+
 }

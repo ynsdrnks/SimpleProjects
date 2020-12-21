@@ -13,6 +13,9 @@ public class DistrictsDto {
 
     @JsonProperty
     private String districtName;
+    
+    @JsonProperty
+    private Integer cityId;
 
 
 }

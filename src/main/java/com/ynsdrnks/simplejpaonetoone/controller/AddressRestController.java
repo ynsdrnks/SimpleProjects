@@ -73,11 +73,11 @@ public class AddressRestController {
     }
 
 
-    @GetMapping("/allAddress")
-    ResponseEntity<?> getAllAddress(@RequestParam("calisan_id")Long calisanId){
-        List<Adress> adressList = calisanService.getByCalisanId(calisanId).getAdresses();
-        return new ResponseEntity<List<AdressDto>>(converter.adressListConvertToDtoList(adressList),HttpStatus.OK);
-    }
+//    @GetMapping("/allAddress")
+//    ResponseEntity<?> getAllAddress(@RequestParam("calisan_id")Long calisanId){
+//        List<AddressDropDown> adressList = calisanService.getByCalisanId(calisanId).getAddressDropDowns();
+//        return new ResponseEntity<List<AddressDropDownDto>>(converter.adressDropdownListConvertToDtoList(adressList),HttpStatus.OK);
+//    }
 
     @GetMapping("/allAddress/{clsnId}")
     ResponseEntity<?> getAllAddressCalisan(@PathVariable("clsnId") Long calisanId){

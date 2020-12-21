@@ -9,4 +9,5 @@ public interface CityService {
     public List<City> findByCountry(int id);
     void saveList(Iterable<City> cities);
     public List<City> findAlll();
+    public City findCityById(int id);
 }

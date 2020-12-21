@@ -33,4 +33,9 @@ public class CityServiceImpl implements CityService {
     public List<City> findAlll() {
         return cityRepository.findAll();
     }
+
+    @Override
+    public City findCityById(int id) {
+        return cityRepository.getOne(id);
+    }
 }

@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class AddressDropDownDto {
+
     @JsonProperty
     private Long calisanId;
 
