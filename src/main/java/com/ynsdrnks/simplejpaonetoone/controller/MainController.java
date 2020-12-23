@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class CalisanController {
+public class MainController {
     @Autowired
     CalisanServiceImpl calisanService;
     @Autowired
@@ -36,14 +36,14 @@ public class CalisanController {
         return "home";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/new-employee")
     public String newCalisan(Model model){
         Calisan calisan = new Calisan();
         model.addAttribute("calisan",calisan);
         return "new-calisan";
     }
 
-    @RequestMapping(value = "/saveCalisan",method = RequestMethod.POST)
+    @RequestMapping(value = "/save-employee",method = RequestMethod.POST)
     public String save(@ModelAttribute("calisan") Calisan calisan) {
         calisanService.save(calisan);
         Long id = calisan.getClsnId();
@@ -62,20 +62,20 @@ public class CalisanController {
 }
 
 
-    @RequestMapping(value = "/addInfo",method = RequestMethod.POST)
+    @RequestMapping(value = "/add-info",method = RequestMethod.POST)
     public String addInfo(@ModelAttribute("moreInfo") MoreInfo moreInfo,Calisan calisan) {
         infoService.saveInfo(moreInfo);
         calisan.setMoreInfo(moreInfo);
         return "redirect:/";
     }
 
-    @RequestMapping(value = "delete/{clsnId}",method = RequestMethod.GET)
+    @RequestMapping(value = "delete-employee/{clsnId}",method = RequestMethod.GET)
     public String delete(@PathVariable("clsnId") Long id){
         calisanService.deleteById(id);
         return "redirect:/";
     }
 
-    @GetMapping("/edit/{clsnId}")
+    @GetMapping("/edit-employee/{clsnId}")
     public ModelAndView editCalisan(@PathVariable(name = "clsnId") Long id){
     ModelAndView mav =new ModelAndView("edit-calisan");
     Calisan calisan = calisanService.getByCalisanId(id);
@@ -84,7 +84,7 @@ public class CalisanController {
     return mav;
  }
 
-    @GetMapping("/addInfo/{clsnId}")
+    @GetMapping("/add-info/{clsnId}")
     public ModelAndView addInfo(@PathVariable(name = "clsnId") Long id){
         ModelAndView mav =new ModelAndView("addInfo");
         if(infoService.getInfoById(id)!=null){
@@ -110,7 +110,7 @@ public class CalisanController {
     }
 
 
-    @RequestMapping(value = "/addAdress",method = RequestMethod.POST)
+    @RequestMapping(value = "/add-address",method = RequestMethod.POST)
     public String saveAdress(@ModelAttribute("adress") Adress adress) {
         Calisan calisan = calisanService.getByCalisanId(adress.getCalisanId());
         if (calisan.getAdresses().isEmpty()){
@@ -127,14 +127,14 @@ public class CalisanController {
     }
 
 
-    @RequestMapping(value = "/saveAdress/{clsnId}",method = RequestMethod.POST)
+    @RequestMapping(value = "/save-address/{clsnId}",method = RequestMethod.POST)
     public String saveAdresss(@ModelAttribute("adress") AddressDropDown adress) {
         calisanService.getByCalisanId(adress.getCalisanId()).getAddressDropDowns().add(adress);
         addressDropDownService.saveAdress(adress);
-        return "redirect:/listAdresses/{clsnId}";
+        return "redirect:/list-addresses/{clsnId}";
     }
 
-    @GetMapping("/editAdress/{calisanId}/{adressId}")
+    @GetMapping("/edit-address/{calisanId}/{adressId}")
     public ModelAndView editAdress(@PathVariable(name = "calisanId")Long calisanId,@PathVariable("adressId")Long adressId){
         ModelAndView mav =new ModelAndView("edit-adress");
         AddressDropDown adress=addressDropDownService.getAdressById(adressId);
@@ -144,20 +144,20 @@ public class CalisanController {
         return mav;
     }
 
-    @RequestMapping(value = "/deleteAdress/{clsnId}/{adressId}")
+    @RequestMapping(value = "/delete-address/{clsnId}/{adressId}")
     public String deleteAdresss(@PathVariable("adressId") Long addressId) {
         addressDropDownService.deleteAdressById(addressId);
-        return "redirect:/listAdresses/{clsnId}";
+        return "redirect:/list-addresses/{clsnId}";
     }
-    @RequestMapping(value = "/updateAdress/{clsnId}",method = RequestMethod.POST)
+    @RequestMapping(value = "/update-address/{clsnId}",method = RequestMethod.POST)
     public String updateAdresss(@ModelAttribute("adress") AddressDropDown adress){
         addressDropDownService.saveAdress(adress);
-        return "redirect:/listAdresses/{clsnId}";
+        return "redirect:/list-addresses/{clsnId}";
     }
 
     //dropdown
 
-    @GetMapping("/listAdresses/addAdress/{clsnId}")
+    @GetMapping("/list-addresses/add-address/{clsnId}")
     public String adresssAd(Model model,@PathVariable(name ="clsnId")Long id){
         AddressDropDown addressDropDown = new AddressDropDown();
         addressDropDown.setCalisanId(id);
@@ -170,23 +170,23 @@ public class CalisanController {
         return "addressdropdown";
     }
 
-    @RequestMapping(value = "/saveAddressDropDown/{clsnId}",method = RequestMethod.POST)
+    @RequestMapping(value = "/save-addresss/{clsnId}",method = RequestMethod.POST)
     public String saveAdresss(@PathVariable(name = "clsnId") Long clsnId,@ModelAttribute("address")@RequestBody AddressDropDown addressDropDown) {
         ModelAndView mav = new ModelAndView();
         calisanService.getByCalisanId(clsnId).getAddressDropDowns().add(addressDropDown);
         addressDropDown.setCalisanId(clsnId);
         addressDropDownService.saveAdress(addressDropDown);
-        return  "redirect:/listAdresses/{clsnId}";
+        return  "redirect:/list-addresses/{clsnId}";
     }
 
-    @RequestMapping("/listAdresses/{clsnId}")
+    @RequestMapping("/list-addresses/{clsnId}")
     public String listdropDownAdresses(Model model,@PathVariable(name = "clsnId") Long id){
         List<AddressDropDown> adressList = calisanService.getByCalisanId(id).getAddressDropDowns();
         AddressDropDown addressDropDown = new AddressDropDown();
         addressDropDown.setCalisanId(id);
         if(adressList.size()==0){
             model.addAttribute("adressDropDown",addressDropDown);
-            return "redirect:/listAdresses/addAdress/{clsnId}";
+            return "redirect:/list-addresses/add-address/{clsnId}";
         }
         else
             model.addAttribute("listAdresses",adressList);

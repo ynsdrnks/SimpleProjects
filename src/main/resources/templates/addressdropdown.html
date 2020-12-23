@@ -13,7 +13,7 @@
 
     <a th:href="@{'/'}">Home Page</a><br><br>
 </div>
-<form action="#"  th:object="${addressDropDown}" th:action="@{'/saveAddressDropDown/'+${clsnId}}" method="post"  >
+<form action="#"  th:object="${addressDropDown}" th:action="@{'/save-addresss/'+${clsnId}}" method="post"  >
 <div class="form-row">
     <div class="col-md-6  select-arrow-active " >
         <div class="form-group" row>
@@ -74,15 +74,15 @@
     $(document).ready(
         listCity = function (){
             $('#country').change(function () {
-                $.getJSON('/addressApi/cityByCountry?',{
+                $.getJSON('/api/address/city-by-country?',{
                         country_id : $('option:selected','#country').attr("value"),
                     },
                     function (data) {
                         var html ='<option  disabled value="">City</option>';
                         var len = data.length;
                         for (var i=0;i<len;i++){
-                            html+='<option value ="'+data[i].cityId+ '">'
-                                + data[i].cityName+'</option>';
+                            html+='<option value ="'+data[i].city_id+ '">'
+                                + data[i].city_name+'</option>';
                         }
                         html+='</option>';
                         $('#form-control-city').html(html)
@@ -95,15 +95,15 @@
     $(document).ready(
         listDistrict = function () {
             $('#form-control-city').change(function () {
-                $.getJSON('/addressApi/districtsByCity?',{
+                $.getJSON('/api/address/districts-by-city?',{
                         city_id : $('option:selected','#form-control-city').attr("value")
                     },
                     function (data) {
                         var html ='<option  disabled value="">District</option>';
                         var len = data.length;
                         for (var i=0;i<len;i++){
-                            html+='<option value ="'+data[i].districtId+ '">'
-                                + data[i].districtName+'</option>';
+                            html+='<option value ="'+data[i].district_id+ '">'
+                                + data[i].district_name+'</option>';
                         }
                         html+='</option>';
                         $('#form-control-district').html(html)

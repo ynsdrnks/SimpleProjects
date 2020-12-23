@@ -143,6 +143,11 @@ public class Converter {
         return cityDtos.stream().map(this::cityConvertToEntity).collect(Collectors.toList());
     }
 
+    public List<MoreInfoDto> infoListConvertToDtoLiST(List<MoreInfo> moreInfos){
+
+        return moreInfos.stream().map(this::moreInfoConvertToDto).collect(Collectors.toList());
+    }
+
     public List<DistrictsDto> districtsListConvertToDtoList(List<District> districtsList){
        return districtsList.stream().map(this::districtsConvertToDto).collect(Collectors.toList());
     }

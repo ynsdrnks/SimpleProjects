@@ -9,7 +9,7 @@
 <body>
 <div align="center">
     <h1>Çalışan Listesi</h1>
-    <a href="/new">Yeni Çalışan Ekle</a>
+    <a href="/new-employee">Yeni Çalışan Ekle</a>
     <br/><br/>
     <table border="1" cellpadding="10">
         <thead>
@@ -29,13 +29,13 @@
             <td th:text="${clsn.clsnLastName}">Last Name</td>
             <td th:text="${clsn.clsnEmail}">Email</td>
 
-            <td><a th:href="@{'/edit/' + ${clsn.clsnId}}">Düzenle</a>
+            <td><a th:href="@{'/edit-employee/' + ${clsn.clsnId}}">Düzenle</a>
                 &nbsp
-                <a th:href="@{'/delete/' + ${clsn.clsnId}}">Sil</a>&nbsp;
+                <a th:href="@{'/delete-employee/' + ${clsn.clsnId}}">Sil</a>&nbsp;
                 &nbsp
-                <a th:href="@{'/addInfo/' + ${clsn.clsnId}}">Bilgi Ekle/Düzenle</a>
+                <a th:href="@{'/add-info/' + ${clsn.clsnId}}">Bilgi Ekle/Düzenle</a>
                 &nbsp
-                <a th:href="@{'/listAdresses/' + ${clsn.clsnId}}">Adres İşlemleri</a>
+                <a th:href="@{'/list-addresses/' + ${clsn.clsnId}}">Adres İşlemleri</a>
             </td>
 
         </tr>

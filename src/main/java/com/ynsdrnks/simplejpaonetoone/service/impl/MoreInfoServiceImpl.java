@@ -1,6 +1,5 @@
 package com.ynsdrnks.simplejpaonetoone.service.impl;
 
-import com.ynsdrnks.simplejpaonetoone.entity.Calisan;
 import com.ynsdrnks.simplejpaonetoone.entity.MoreInfo;
 import com.ynsdrnks.simplejpaonetoone.repository.MoreInfoRepository;
 import com.ynsdrnks.simplejpaonetoone.service.MoreInfoService;
@@ -8,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +15,11 @@ public class MoreInfoServiceImpl implements MoreInfoService {
 
     @Autowired
     private final MoreInfoRepository infoRepo;
+
+    @Override
+    public Iterable<MoreInfo> findAllInfos() {
+    return infoRepo.findAll();
+    }
 
     @Override
     public void deleteInfoById(Long id) {

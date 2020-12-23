@@ -20,7 +20,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/calisanApi")
+@RequestMapping(value = "/api/employee")
 public class CalisanRestController {
 
 
@@ -33,12 +33,12 @@ public class CalisanRestController {
     @Autowired
     private CalisanServiceImpl calisanService;
 
-    @GetMapping("/calisanList")
+    @GetMapping("/list-employee")
     ResponseEntity<?> getCalisans(){
         return new ResponseEntity<List<CalisanDto>>(converter.calisanListConvertToDtoList((List<Calisan>)calisanService.listAllCalisans()), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/calisanList/{clsnId}")
+    @GetMapping(value = "/list-employee/{clsnId}")
     ResponseEntity<?> getCalisanById(@PathVariable("clsnId") long id){
         try {
             Calisan calisan = calisanService.getByCalisanId(id);
@@ -49,7 +49,7 @@ public class CalisanRestController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-    @PutMapping("/calisanList/{clsnId}")
+    @PutMapping("/update-employee/{clsnId}")
     public CalisanDto updateCalisan(@PathVariable Long clsnId,
                                     @Valid @RequestBody CalisanDto calisanRequest) {
         return calisanRepo.findById(clsnId)
@@ -63,13 +63,13 @@ public class CalisanRestController {
                 }).orElseThrow(()-> new ResourceNotFoundException("bulunamadı"+clsnId));
     }
 
-    @PostMapping("/calisanList")
+    @PostMapping("/add-employee")
     public CalisanDto createCalisan(@Valid @RequestBody CalisanDto calisanReq){
         calisanService.save(converter.calisanDtoConvertToEntity(calisanReq));
         return calisanReq;
     }
 
-    @DeleteMapping("/calisanList/{clsnId}")
+    @DeleteMapping("/delete-employee/{clsnId}")
     public ResponseEntity<?> deleteCalisan(@PathVariable("clsnId") long clsnId){
         return calisanRepo.findById(clsnId).map(calisan -> {
             calisanService.deleteById(clsnId);
